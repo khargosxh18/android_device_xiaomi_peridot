@@ -553,6 +553,120 @@
             "Node": "CPULittleClusterMinFreq",
             "Duration": 200,
             "Value": "1228800"
+        },
+        {
+            "PowerHint": "CAMERA_LAUNCH",
+            "Node": "CPUBigPlusClusterMinFreq",
+            "Duration": 1000,
+            "Value": "2304000"
+        },
+        {
+            "PowerHint": "CAMERA_LAUNCH",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 1000,
+            "Value": "2073600"
+        },
+        {
+            "PowerHint": "CAMERA_LAUNCH",
+            "Node": "CPULittleClusterMinFreq",
+            "Duration": 1000,
+            "Value": "1478400"
+        },
+        {
+            "PowerHint": "CAMERA_LAUNCH",
+            "Node": "DdrBwMinFreq",
+            "Duration": 1000,
+            "Value": "1555000"
+        },
+        {
+            "PowerHint": "CAMERA_LAUNCH",
+            "Node": "WaltSchedBoost",
+            "Duration": 1000,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_LOW",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "768000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_LOW",
+            "Node": "LlccBwMinFreq",
+            "Duration": 0,
+            "Value": "806000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_LOW",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 0,
+            "Value": "1286400"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_MID",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "768000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_MID",
+            "Node": "LlccBwMinFreq",
+            "Duration": 0,
+            "Value": "806000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_MID",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 0,
+            "Value": "1286400"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_HIGH",
+            "Node": "CPUBigPlusClusterMinFreq",
+            "Duration": 0,
+            "Value": "2150400"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_HIGH",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "1555000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_HIGH",
+            "Node": "LlccBwMinFreq",
+            "Duration": 0,
+            "Value": "933000"
+        },
+        {
+            "PowerHint": "CAMERA_STREAMING_HIGH",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 0,
+            "Value": "1497600"
+        },
+        {
+            "PowerHint": "CAMERA_SHOT",
+            "Node": "WaltSchedBoost",
+            "Duration": 0,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "CAMERA_SHOT",
+            "Node": "CPUBigPlusClusterMinFreq",
+            "Duration": 0,
+            "Value": "2668800"
+        },
+        {
+            "PowerHint": "CAMERA_SHOT",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 0,
+            "Value": "2572800"
+        },
+        {
+            "PowerHint": "CAMERA_SHOT",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "1555000"
         }
     ]
 }
