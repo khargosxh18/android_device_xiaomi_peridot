@@ -311,6 +311,79 @@
             "Values": ["1066000", "933000", "806000", "600000", "466500", "300000", "0"],
             "DefaultIndex": 6,
             "ResetOnInit": true
+        },
+        {
+            "Name": "CoreCtlMinCoresBig",
+            "Paths": ["/sys/devices/system/cpu/cpu3/core_ctl/min_cpus"],
+            "Values": ["4", "0"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "UfsScheduler",
+            "Paths": ["/sys/block/sda/queue/scheduler"],
+            "Values": ["mq-deadline", "none"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "UfsReadAhead",
+            "Paths": ["/sys/block/sda/queue/read_ahead_kb"],
+            "Values": ["128", "2048"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedRtBoost",
+            "Paths": ["/proc/sys/kernel/sched_util_clamp_min_rt_default"],
+            "Values": ["0", "128", "256"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "Cpu3WaltHispeedLoad",
+            "Paths": ["/sys/devices/system/cpu/cpu3/cpufreq/walt/hispeed_load"],
+            "Values": ["85", "70", "60"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu7WaltHispeedLoad",
+            "Paths": ["/sys/devices/system/cpu/cpu7/cpufreq/walt/hispeed_load"],
+            "Values": ["85", "70", "75"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu7WaltDownRateLimitUs",
+            "Paths": ["/sys/devices/system/cpu/cpu7/cpufreq/walt/down_rate_limit_us"],
+            "Values": ["0", "8000"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "SchedGroupDown",
+            "Paths": ["/proc/sys/walt/sched_group_downmigrate"],
+            "Values": ["85", "35"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "ADPFProfileSurfaceFlinger",
+            "Paths": ["<AdpfConfig>:SURFACEFLINGER"],
+            "Values": ["ADPF_BALANCED_UI", "ADPF_GAME_SUSTAINED", "ADPF_DOZE_MAX"],
+            "DefaultIndex": 2,
+            "Type": "Event"
+        },
+        {
+            "Name": "ADPFProfileApp",
+            "Paths": ["<AdpfConfig>:APP"],
+            "Values": ["ADPF_BALANCED_UI", "ADPF_GAME_SUSTAINED", "ADPF_DOZE_MAX"],
+            "DefaultIndex": 2,
+            "Type": "Event"
         }
     ],
     "Actions": [
@@ -555,6 +628,18 @@
             "Value": "1228800"
         },
         {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "ADPFProfileApp",
+            "Value": "ADPF_DOZE_MAX",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "ADPFProfileSurfaceFlinger",
+            "Value": "ADPF_DOZE_MAX",
+            "Duration": 0
+        },
+        {
             "PowerHint": "CAMERA_LAUNCH",
             "Node": "CPUBigPlusClusterMinFreq",
             "Duration": 1000,
@@ -667,6 +752,317 @@
             "Node": "DdrBwMinFreq",
             "Duration": 0,
             "Value": "1555000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "INTERACTION"
+        },
+        {
+            "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "LAUNCH"
+        },
+        {
+            "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "EXPENSIVE_RENDERING"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 0,
+            "Value": "1286400"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "CPUBigPlusClusterMinFreq",
+            "Duration": 0,
+            "Value": "1209600"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UclampTAMin",
+            "Duration": 0,
+            "Value": "48"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUMinFreq",
+            "Duration": 0,
+            "Value": "353000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUMaxFreq",
+            "Duration": 0,
+            "Value": "1100000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "CoreCtlMinCoresBig",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUIdleTimer",
+            "Value": "80",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu3WaltHispeedLoad",
+            "Duration": 0,
+            "Value": "70"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu7WaltHispeedLoad",
+            "Duration": 0,
+            "Value": "75"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu7WaltDownRateLimitUs",
+            "Duration": 0,
+            "Value": "8000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltBusyHystCpuNs",
+            "Duration": 0,
+            "Value": "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedUpmigrate",
+            "Duration": 0,
+            "Value": "65 85"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedDownmigrate",
+            "Duration": 0,
+            "Value": "45 60"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "1555000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwMinFreq",
+            "Duration": 0,
+            "Value": "600000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "L3MinFreq",
+            "Duration": 0,
+            "Value": "1209600"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "PMQoSCpuDmaLatency",
+            "Duration": 0,
+            "Value": "44"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UclampTALatency",
+            "Duration": 0,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHistMemory",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHistMemory",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHystTriggerCount",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHystTriggerCount",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwIoPercent",
+            "Value": "16",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwIoPercent",
+            "Value": "16",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedIdleEnough",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHystLength",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHystLength",
+            "Value": "0",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForBoost",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForColoc",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForUclamp",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwSampleMs",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwSampleMs",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedRtBoost",
+            "Duration": 0,
+            "Value": "128"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UfsScheduler",
+            "Duration": 0,
+            "Value": "none"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UfsReadAhead",
+            "Duration": 0,
+            "Value": "128"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "ADPFProfileApp",
+            "Value": "ADPF_GAME_SUSTAINED",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "ADPFProfileSurfaceFlinger",
+            "Value": "ADPF_GAME_SUSTAINED",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedGroupDown",
+            "Duration": 0,
+            "Value": "35"
+        }
+    ],
+    "AdpfConfig": [
+        {
+            "Name": "ADPF_BALANCED_UI",
+            "PID_On": false,
+            "PID_Po": 1.5,
+            "PID_Pu": 2.5,
+            "PID_I": 0.001,
+            "PID_I_Init": 0,
+            "PID_I_High": 10,
+            "PID_I_Low": -10,
+            "PID_Do": 10.0,
+            "PID_Du": 5.0,
+            "UclampMin_On": true,
+            "UclampMin_Init": 0,
+            "UclampMin_High": 20,
+            "UclampMin_Low": 0,
+            "SamplingWindow_P": 1,
+            "SamplingWindow_I": 15,
+            "SamplingWindow_D": 1,
+            "StaleTimeFactor": 3.0,
+            "ReportingRateLimitNs": 8000000,
+            "TargetTimeFactor": 0.98
+        },
+        {
+            "Name": "ADPF_GAME_SUSTAINED",
+            "PID_On": true,
+            "PID_Po": 1.0,
+            "PID_Pu": 0.6,
+            "PID_I": 0,
+            "PID_I_Init": 160,
+            "PID_I_High": 380,
+            "PID_I_Low": -30,
+            "PID_Do": 400,
+            "PID_Du": 0,
+            "UclampMin_On": true,
+            "UclampMin_Init": 80,
+            "UclampMin_High": 512,
+            "UclampMin_Low": 5,
+            "SamplingWindow_P": 1,
+            "SamplingWindow_I": 1,
+            "SamplingWindow_D": 1,
+            "StaleTimeFactor": 3.5,
+            "ReportingRateLimitNs": 83333333,
+            "TargetTimeFactor": 1.2
+        },
+        {
+            "Name": "ADPF_DOZE_MAX",
+            "PID_On": false,
+            "PID_Po": 0.0,
+            "PID_Pu": 5.0,
+            "PID_I": 0.0,
+            "PID_I_Init": 0,
+            "PID_I_High": 0,
+            "PID_I_Low": 0,
+            "PID_Do": 0.0,
+            "PID_Du": 0.0,
+            "UclampMin_On": false,
+            "UclampMin_Init": 0,
+            "UclampMin_High": 0,
+            "UclampMin_Low": 0,
+            "SamplingWindow_P": 1,
+            "SamplingWindow_I": 1,
+            "SamplingWindow_D": 1,
+            "StaleTimeFactor": 1.0,
+            "ReportingRateLimitNs": 100000000,
+            "TargetTimeFactor": 1.0
         }
     ]
 }
