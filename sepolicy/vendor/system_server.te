@@ -2,3 +2,5 @@ binder_call(system_server, vendor_hal_displayfeature_xiaomi_default)
 
 # Allow system_server to read camera2 extensions prop
 get_prop(system_server, camera2_extensions_prop)
+
+hal_client_domain(system_server, hal_dms)
