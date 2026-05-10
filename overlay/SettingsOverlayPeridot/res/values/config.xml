@@ -13,7 +13,7 @@
          otherwise a slider. If '3', the settings app maps intensities directly to the levels
          supported by the Vibrator HAL APIs. If '2', then the levels will be mapped to
          VIBRATION_INTENSITY_LOW and VIBRATION_INTENSITY_HIGH, which gives the most range for
-         scaling vibrations. The medium intensity will be skipped.
+u         scaling vibrations. The medium intensity will be skipped.
 
          The default intensity values are configured at
          frameworks/base/core/res/res/values/config.xml's config_default[type]VibrationIntensity.
@@ -31,9 +31,6 @@
 
     <!-- The radius of the enrollment progress bar, in dp -->
     <integer name="config_udfpsEnrollProgressBar">90</integer>
-
-    <!-- Enable smooth display for high refresh rates -->
-    <bool name="config_show_smooth_display">true</bool>
 
     <!-- Enable display touch sensitivity switch -->
     <bool name="config_show_touch_sensitivity">true</bool>
