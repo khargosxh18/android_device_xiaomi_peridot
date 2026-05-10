@@ -897,4 +897,25 @@
     <!-- Default value for fp screen off unlock toggle, it only works for the devices that support
          fp screen off unlock-->
     <bool name="config_screen_off_udfps_default_on">true</bool>
+
+    <!-- Double Tap to Wake -->
+    <bool name="config_supportDoubleTapWake">true</bool>
+
+    <!-- Enable the HWC setColorTransform function so it can be performed efficiently in hardware -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
+
+    <!-- Improve Signal reception -->
+    <bool name="config_ignoreRssnrSignalLevel">true</bool>
+
+    <!-- Some Important Overlays for fod -->
+    <bool name="config_needCustomFODView">true</bool>
+    <bool name="config_supportsInDisplayFingerprint">true</bool>
+    <integer name="config_fingerprintSensorLocation">1</integer>    
+
+    <!-- Status Bar Burn-In Protection -->
+    <bool name="config_enableBurnInProtection">true</bool>
+
+    <!-- Support for doze triggers -->
+    <bool name="config_dozePulseTilt">true</bool>
+    <bool name="config_dozePulseProximity">true</bool>
 </resources>
