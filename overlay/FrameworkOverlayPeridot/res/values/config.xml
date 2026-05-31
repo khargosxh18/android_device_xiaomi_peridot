@@ -912,6 +912,9 @@
     <bool name="config_supportsInDisplayFingerprint">true</bool>
     <integer name="config_fingerprintSensorLocation">1</integer>    
 
+    <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
+    <integer name="config_screenRecorderMaxFramerate">120</integer>
+
     <!-- Support for doze triggers -->
     <bool name="config_dozePulseTilt">true</bool>
     <bool name="config_dozePulseProximity">true</bool>
