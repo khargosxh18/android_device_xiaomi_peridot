@@ -143,6 +143,7 @@
             "Values": [
                 "0",
                 "8",
+                "18",
                 "20",
                 "25",
                 "30",
@@ -723,6 +724,12 @@
             "PowerHint": "INTERACTION",
             "Node": "UclampTAMin",
             "Value": "25",
+            "Duration": 100
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "UclampFGMin",
+            "Value": "18",
             "Duration": 100
         },
         {
