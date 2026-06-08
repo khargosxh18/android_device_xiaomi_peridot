@@ -117,6 +117,7 @@
                 "20",
                 "25",
                 "30",
+                "35",
                 "48",
                 "64",
                 "96"
@@ -569,6 +570,15 @@
             ],
             "DefaultIndex": 3,
             "ResetOnInit": true
+        },
+        {
+            "Name": "PowerHALRenderingState",
+            "Path": "vendor.powerhal.rendering",
+            "Values": [
+                "EXPENSIVE_RENDERING",
+                ""
+            ],
+            "Type": "Property"
         }
     ],
     "Actions": [
@@ -689,20 +699,20 @@
         {
             "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForColoc",
-            "Value": "35",
-            "Duration": 100
+            "Value": "0",
+            "Duration": 0
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForBoost",
-            "Value": "51",
-            "Duration": 100
+            "Value": "0",
+            "Duration": 0
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForUclamp",
             "Value": "0",
-            "Duration": 100
+            "Duration": 0
         },
         {
             "PowerHint": "INTERACTION",
@@ -718,20 +728,14 @@
         },
         {
             "PowerHint": "INTERACTION",
-            "Node": "GPUIdleTimer",
-            "Value": "30",
-            "Duration": 60
-        },
-        {
-            "PowerHint": "INTERACTION",
             "Node": "UclampTAMin",
-            "Value": "25",
+            "Value": "35",
             "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "UclampFGMin",
-            "Value": "18",
+            "Value": "25",
             "Duration": 100
         },
         {
@@ -1230,6 +1234,24 @@
             "PowerHint": "DISPLAY_INACTIVE",
             "Node": "_sys_devices_system_cpu_bus_dcvs_LLCC_240b7400.qcom,bwmon_llcc_sample_ms",
             "Value": "33",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "PowerHALRenderingState",
+            "Value": "EXPENSIVE_RENDERING",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "GPUMinFreq",
+            "Value": "500000000",
+            "Duration": 0
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "GPUIdleTimer",
+            "Value": "60",
             "Duration": 0
         }
     ]
