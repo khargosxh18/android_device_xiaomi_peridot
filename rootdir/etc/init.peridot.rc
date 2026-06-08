@@ -15,105 +15,41 @@ on early-init
     # set tcp_mtu_probing to 1
     write /proc/sys/net/ipv4/tcp_mtu_probing 1
 
+    # DRM
     chown system graphics /sys/class/drm/card0/device/power/control
+
+    # CPU DMA latency
     chown system system /dev/cpu_dma_latency
     chmod 0660 /dev/cpu_dma_latency
-    chown system system /sys/kernel/msm_performance/parameters/cpu_max_freq
-    chown system system /sys/kernel/msm_performance/parameters/cpu_min_freq
-    chmod 0660 /sys/kernel/msm_performance/parameters/cpu_max_freq
-    chmod 0660 /sys/kernel/msm_performance/parameters/cpu_min_freq
+
+    # Top-app uclamp
     chown system system /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
     chown system system /dev/cpuctl/top-app/cpu.uclamp.min
     chown system system /dev/cpuctl/top-app/cpu.uclamp.max
     chmod 0660 /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
     chmod 0660 /dev/cpuctl/top-app/cpu.uclamp.min
     chmod 0660 /dev/cpuctl/top-app/cpu.uclamp.max
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-    chown system system /sys/class/kgsl/kgsl-3d0/idle_timer
-    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
-    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
-    chmod 0660 /sys/class/kgsl/kgsl-3d0/idle_timer
-    chown system system /sys/devices/system/cpu/qcom_lpm/parameters/prediction_disabled
-    chown system system /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled
+
+    # Core control
     chown system system /sys/devices/system/cpu/cpu0/core_ctl/enable
     chown system system /sys/devices/system/cpu/cpu3/core_ctl/enable
     chown system system /sys/devices/system/cpu/cpu7/core_ctl/enable
+
     chown system system /sys/devices/system/cpu/cpu0/core_ctl/min_cpus
     chown system system /sys/devices/system/cpu/cpu3/core_ctl/min_cpus
     chown system system /sys/devices/system/cpu/cpu7/core_ctl/min_cpus
-    chmod 0660 /sys/devices/system/cpu/qcom_lpm/parameters/prediction_disabled
-    chmod 0660 /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled
+
     chmod 0660 /sys/devices/system/cpu/cpu0/core_ctl/enable
     chmod 0660 /sys/devices/system/cpu/cpu3/core_ctl/enable
     chmod 0660 /sys/devices/system/cpu/cpu7/core_ctl/enable
+
     chmod 0660 /sys/devices/system/cpu/cpu0/core_ctl/min_cpus
     chmod 0660 /sys/devices/system/cpu/cpu3/core_ctl/min_cpus
     chmod 0660 /sys/devices/system/cpu/cpu7/core_ctl/min_cpus
 
-    # Schedutil/WALT tuning
-    chown system system /proc/sys/walt/sched_boost
-    chown system system /proc/sys/walt/sched_upmigrate
-    chown system system /proc/sys/walt/sched_downmigrate
-    chown system system /proc/sys/walt/sched_busy_hyst_ns
-    chown system system /proc/sys/walt/sched_busy_hysteresis_enable_cpus
-    chown system system /proc/sys/walt/sched_idle_enough
-    chown system system /proc/sys/walt/sched_min_task_util_for_boost
-    chown system system /proc/sys/walt/sched_min_task_util_for_colocation
-    chown system system /proc/sys/walt/sched_min_task_util_for_uclamp
-    chmod 0660 /proc/sys/walt/sched_boost
-    chmod 0660 /proc/sys/walt/sched_upmigrate
-    chmod 0660 /proc/sys/walt/sched_downmigrate
-    chmod 0660 /proc/sys/walt/sched_busy_hyst_ns
-    chmod 0660 /proc/sys/walt/sched_busy_hysteresis_enable_cpus
-    chmod 0660 /proc/sys/walt/sched_idle_enough
-    chmod 0660 /proc/sys/walt/sched_min_task_util_for_boost
-    chmod 0660 /proc/sys/walt/sched_min_task_util_for_colocation
-    chmod 0660 /proc/sys/walt/sched_min_task_util_for_uclamp
-
-    # Bus nodes
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_trigger_count
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/min_freq
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hist_memory
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_length
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_trigger_count
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/max_freq
-    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/sample_ms
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_trigger_count
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/min_freq
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hist_memory
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_length
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_trigger_count
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/max_freq
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/sample_ms
-
-    # CPU Walt nodes
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/pl
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq
-    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq
-    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load
-    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/pl
-    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq
-
-    # Dynpf
-    chown system system /sys/devices/system/cpu/dynpf/enable_dynpf
-    chmod 0660 /sys/devices/system/cpu/dynpf/enable_dynpf
-
-    # Uclamp FG
+    # Foreground uclamp
     chown system system /dev/cpuctl/foreground/cpu.uclamp.min
-    chmod 0660 /dev/cpuctl/foreground/cpu.uclamp.min
+    chmod 0660 /dev/cpuctl/foreground/cpu.uclamp.min        
 
 on boot
     # Disable FB scaling // xiaomi disables it in qti_display_boot scripts
@@ -423,6 +359,90 @@ on property:vendor.post_boot.parsed=1
     write /proc/sys/vm/kswapd_threads 1
 
 on property:sys.boot_completed=1
+    # msm_performance
+    chown system system /sys/kernel/msm_performance/parameters/cpu_max_freq
+    chown system system /sys/kernel/msm_performance/parameters/cpu_min_freq
+    chmod 0660 /sys/kernel/msm_performance/parameters/cpu_max_freq
+    chmod 0660 /sys/kernel/msm_performance/parameters/cpu_min_freq
+
+    # KGSL
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/idle_timer
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chmod 0660 /sys/class/kgsl/kgsl-3d0/idle_timer
+
+    # qcom_lpm
+    chown system system /sys/devices/system/cpu/qcom_lpm/parameters/prediction_disabled
+    chown system system /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled
+    chmod 0660 /sys/devices/system/cpu/qcom_lpm/parameters/prediction_disabled
+    chmod 0660 /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled
+
+    # WALT proc nodes
+    chown system system /proc/sys/walt/sched_boost
+    chown system system /proc/sys/walt/sched_upmigrate
+    chown system system /proc/sys/walt/sched_downmigrate
+    chown system system /proc/sys/walt/sched_busy_hyst_ns
+    chown system system /proc/sys/walt/sched_busy_hysteresis_enable_cpus
+    chown system system /proc/sys/walt/sched_idle_enough
+    chown system system /proc/sys/walt/sched_min_task_util_for_boost
+    chown system system /proc/sys/walt/sched_min_task_util_for_colocation
+    chown system system /proc/sys/walt/sched_min_task_util_for_uclamp
+
+    chmod 0660 /proc/sys/walt/sched_boost
+    chmod 0660 /proc/sys/walt/sched_upmigrate
+    chmod 0660 /proc/sys/walt/sched_downmigrate
+    chmod 0660 /proc/sys/walt/sched_busy_hyst_ns
+    chmod 0660 /proc/sys/walt/sched_busy_hysteresis_enable_cpus
+    chmod 0660 /proc/sys/walt/sched_idle_enough
+    chmod 0660 /proc/sys/walt/sched_min_task_util_for_boost
+    chmod 0660 /proc/sys/walt/sched_min_task_util_for_colocation
+    chmod 0660 /proc/sys/walt/sched_min_task_util_for_uclamp
+
+    # Bus nodes
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_trigger_count
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/min_freq
+    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms
+
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hist_memory
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_length
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_trigger_count
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/max_freq
+    chown system system /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/sample_ms
+
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_trigger_count
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/min_freq
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms
+
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hist_memory
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_length
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_trigger_count
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/max_freq
+    chmod 0660 /sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/sample_ms
+
+    # CPU WALT nodes
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/pl
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq
+
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/pl
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq
+
+    # DynPF
+    chown system system /sys/devices/system/cpu/dynpf/enable_dynpf
+    chmod 0660 /sys/devices/system/cpu/dynpf/enable_dynpf
     write /dev/kmsg "start qrtr-lookup after Boot completed "
     start qrtr-lookup
 
