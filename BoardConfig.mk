@@ -8,6 +8,8 @@ DEVICE_PATH := device/xiaomi/peridot
 
 BUILD_BROKEN_DUP_RULES := true
 
+SELINUX_IGNORE_NEVERALLOWS := true
+
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS := \
