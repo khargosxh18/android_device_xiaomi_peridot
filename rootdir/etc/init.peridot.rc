@@ -56,6 +56,8 @@ on early-init
     chmod 0664 /dev/cpuctl/foreground/cpu.uclamp.min
 
 on boot
+    restorecon /sys/devices/soc0/subset_parts
+
     # Disable FB scaling // xiaomi disables it in qti_display_boot scripts
     setprop vendor.display.enable_fb_scaling 1
 
