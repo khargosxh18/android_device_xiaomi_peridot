@@ -5,4 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_peridot.mk
+    $(LOCAL_DIR)/aicp_peridot.mk
+
+COMMON_LUNCH_CHOICES := \
+    aicp_peridot-bp4a-userdebug \
+    aicp_peridot-bp4a-user \
+    aicp_peridot-bp4a-eng
