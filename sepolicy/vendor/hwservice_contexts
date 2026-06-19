@@ -3,6 +3,3 @@ vendor.xiaomi.hardware.bgservice::IBGService                                    
 vendor.xiaomi.hardware.cameraperf::IMiCameraPerfService                              u:object_r:vendor_hal_cameraperf_hwservice:s0
 vendor.xiaomi.hardware.campostproc::IMiPostProcService                               u:object_r:vendor_hal_camerapostproc_xiaomi_hwservice:s0
 
-# Dolby
-vendor.dolby.hardware.dms::IDms                                                      u:object_r:hal_dms_hwservice:s0
->>>>>>> 814c8f4 (peridot: sepolicy: Add camera perf and postproc hwservice sepolicies)
