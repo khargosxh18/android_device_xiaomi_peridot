@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Sakura Priv
-if [ ! -d "vendor/sakura-priv" ]; then
-    git clone https://github.com/Sakura-Devices/vendor_sakura-priv vendor/sakura-priv
-else
-    echo "vendor/sakura-priv already exists, skipping..."
-fi
+# Xperience Priv
+if [ ! -d "vendor/xperience-priv" ]; then
+    git clone https://github.com/khargosxh18/vendor_xperience-priv.git vendor/xperience-priv
+#else
+#    echo "vendor/xperience-priv already exists, skipping..."
+#fi
 
 # Gamebar
 if [ ! -d "packages/apps/GameBar" ]; then
