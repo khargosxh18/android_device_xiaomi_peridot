@@ -1,0 +1,2 @@
+# Allow kernel to read wlan mac from persist
+allow kernel mnt_vendor_file:file { read open };
