@@ -5,3 +5,6 @@ allow vendor_qti_init_shell vendor_firmware_data_file:dir rw_dir_perms;
 allow vendor_qti_init_shell vendor_firmware_data_file:file rw_file_perms;
 allow vendor_qti_init_shell vendor_data_file:file { read open getattr };
 allow vendor_qti_init_shell vendor_data_file:dir { read open getattr };
+
+# Allow qti init shell to write cpu scaling sysfs
+allow vendor_qti_init_shell sysfs_xio_compute:file { open read write getattr };

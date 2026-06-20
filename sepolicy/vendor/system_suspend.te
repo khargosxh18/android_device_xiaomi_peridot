@@ -1,1 +1,5 @@
 allow system_suspend_server batterysecret:binder transfer;
+
+# Allow system_suspend <-> keymint_strongbox binder
+allow system_suspend_server vendor_hal_keymint_strongbox:binder transfer;
+allow vendor_hal_keymint_strongbox system_suspend_server:binder call;
