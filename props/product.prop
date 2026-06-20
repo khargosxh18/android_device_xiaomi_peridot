@@ -26,3 +26,7 @@ bluetooth.profile.vcp.controller.enabled=false
 
 # Media
 media.stagefright.audio.deep=true
+
+#Xpe
+ro.device.front_cam=20MP
+ro.device.rear_cam=50MP+8MP
