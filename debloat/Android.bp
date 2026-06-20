@@ -9,6 +9,7 @@ cc_prebuilt_binary {
         "AmbientSensePrebuilt",
         "Aperture",
         "arcore",
+        "Camera2",
         "Chrome",
         "Chrome-Stub",
         "ConnMO",
