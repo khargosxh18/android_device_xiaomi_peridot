@@ -10,3 +10,6 @@ set_prop(rild, vendor_radio_prop)
 set_prop(rild, vendor_ssr_prop)
 set_prop(rild, vendor_usb_prop)
 set_prop(rild, vendor_deviceid_prop)
+
+# Allow rild to read default properties
+get_prop(rild, default_prop)

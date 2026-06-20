@@ -9,3 +9,10 @@ allow system_app sysfs_thermal:file rw_file_perms;
 # Charge 
 allow system_app vendor_sysfs_battery_supply:dir search;
 allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
+
+# Allow system_app to use qspmhal vendor lib
+allow system_app vendor_file:file { read open getattr map execute };
+
+# Allow system_app to call displayfeature HAL via binder
+allow system_app vendor_hal_displayfeature_xiaomi_default:binder call;
+allow system_app vendor_hal_displayfeature_xiaomi_service:service_manager find;
