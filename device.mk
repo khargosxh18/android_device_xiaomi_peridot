@@ -532,3 +532,6 @@ $(call inherit-product, packages/apps/GameBar/gamebar.mk)
 
 # Vendor MiuiCamera
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
+
+# Sign Build
+-include vendor/xperience-priv/keys/keys.mk
