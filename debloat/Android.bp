@@ -8,6 +8,7 @@ cc_prebuilt_binary {
     overrides: [
         "AmbientSensePrebuilt",
         "arcore",
+        "Camera2",
         "Chrome",
         "Chrome-Stub",
         "ConnMO",
