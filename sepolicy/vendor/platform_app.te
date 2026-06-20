@@ -1,0 +1,2 @@
+# Allow platform_app to use qspmhal vendor lib
+allow platform_app vendor_file:file { read open getattr map execute };
