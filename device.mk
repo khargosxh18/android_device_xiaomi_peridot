@@ -323,9 +323,8 @@ PRODUCT_COPY_FILES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/google/interfaces \
-    hardware/google/pixel \
     hardware/xiaomi \
+    hardware/qcom-caf/bootctrl \
     vendor/qcom/opensource/usb/etc
 
 # Sensors
@@ -463,3 +462,6 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
+
+# Sign Build
+-include vendor/lineage-priv/keys/keys.mk
