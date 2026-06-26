@@ -164,10 +164,6 @@ PRODUCT_PACKAGES += \
 SYSTEM_OPTIMIZE_JAVA := true
 SYSTEMUI_OPTIMIZE_JAVA := true
 
-# Fastbootd
-PRODUCT_PACKAGES += \
-    fastbootd
-
 # Fingerprint
 $(call soong_config_set,XIAOMI_BIOMETRICS_FINGERPRINT,IMPL_VER,V2)
 PRODUCT_PACKAGES += \
@@ -452,7 +448,6 @@ PRODUCT_PACKAGES += \
     CarrierConfigOverlayPeridot \
     FrameworkOverlayPeridot \
     Launcher3DeviceOverlayPeridot \
-    LineageSDKOverlayPeridot \
     LineageSettingsOverlayPeridot \
     NfcOverlayPeridot \
     SecureElementOverlayPeridot \
