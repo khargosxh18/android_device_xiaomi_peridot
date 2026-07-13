@@ -544,3 +544,5 @@ $(call inherit-product, packages/apps/ViPER4AndroidFX/config.mk)
 
 # Vendor MiuiCamera
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
+
+$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
