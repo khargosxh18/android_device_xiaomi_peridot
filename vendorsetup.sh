@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Sakura Priv
-if [ ! -d "vendor/sakura-priv" ]; then
-    git clone https://github.com/Sakura-Devices/vendor_sakura-priv vendor/sakura-priv
+if [ ! -d "vendor/lineage-priv" ]; then
+    git clone https://github.com/Khargosxh18/vendor_lineage-priv vendor/lineage-priv
 else
-    echo "vendor/sakura-priv already exists, skipping..."
+    echo "vendor/lineage-priv already exists, skipping..."
 fi
 
 # Gamebar
