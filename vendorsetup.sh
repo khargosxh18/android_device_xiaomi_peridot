@@ -1,24 +1,10 @@
 #!/bin/bash
 
-# Sakura Priv
-if [ ! -d "vendor/sakura-priv" ]; then
-    git clone https://github.com/Sakura-Devices/vendor_sakura-priv vendor/sakura-priv
-else
-    echo "vendor/sakura-priv already exists, skipping..."
-fi
-
 # Gamebar
 if [ ! -d "packages/apps/GameBar" ]; then
     git clone https://github.com/kenway214/packages_apps_GameBar.git packages/apps/GameBar
 else
     echo "packages/apps/GameBar already exists, skipping..."
-fi
-
-# Bcr
-if [ ! -d "vendor/bcr" ]; then
-    git clone https://github.com/kenway214/vendor_bcr.git vendor/bcr
-else
-    echo "vendor/bcr already exists, skipping..."
 fi
 
 # Viper4A
