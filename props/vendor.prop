@@ -166,7 +166,6 @@ ro.incremental.enable=yes
 
 # HWUI
 debug.hwui.use_hint_manager=true
-debug.hwui.target_cpu_time_percent=30
 
 # Keymaster
 ro.crypto.metadata_init_delete_all_keys.enabled=true
