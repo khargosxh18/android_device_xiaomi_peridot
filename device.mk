@@ -539,9 +539,6 @@ $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
 # GameBar Performance Overlay
 $(call inherit-product, packages/apps/GameBar/gamebar.mk)
 
-#Bcr
-$(call inherit-product, vendor/bcr/bcr.mk)
-
 #Viper4Android
 $(call inherit-product, packages/apps/ViPER4AndroidFX/config.mk)
 
