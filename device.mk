@@ -208,13 +208,6 @@ PRODUCT_PACKAGES += \
     IPACM_cfg.xml \
     IPACM_Filter_cfg.xml
 
-# IR
-PRODUCT_PACKAGES += \
-    android.hardware.ir-service.lineage
-
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
-
 # Init
 PRODUCT_PACKAGES += \
     charger_fw_fstab.qti \
@@ -542,4 +535,7 @@ $(call inherit-product, packages/apps/GameBar/gamebar.mk)
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
 
 # Sign Build
--include vendor/xperience-priv/keys/keys.mk
+-include vendor/lineage-priv/keys/keys.mk
+
+#revanced
+$(call inherit-product, vendor/revanced/products/revanced.mk)

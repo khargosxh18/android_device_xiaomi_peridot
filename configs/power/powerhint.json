@@ -69,7 +69,7 @@
                 "633600",
                 "480000"
             ],
-            "DefaultIndex": 0,
+            "DefaultIndex": 7,
             "ResetOnInit": true
         },
         {
@@ -146,7 +146,7 @@
                 "1094400",
                 "960000"
             ],
-            "DefaultIndex": 0,
+            "DefaultIndex": 9,
             "ResetOnInit": true
         },
         {
@@ -215,7 +215,7 @@
             ],
             "Values": [
                 "0",
-                "18",
+                "20",
                 "30"
             ],
             "DefaultIndex": 0,
@@ -629,7 +629,7 @@
             ],
             "Values": [
                 "10000",
-                "58",
+                "60",
                 "40",
                 "20"
             ],
@@ -703,123 +703,81 @@
         },
         {
             "PowerHint": "INTERACTION",
-            "Node": "CPULittleClusterMinFreq",
-            "Duration": 1000,
-            "Value": "1478400"
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "CPUBigClusterMinFreq",
-            "Duration": 1000,
-            "Value": "1920000"
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "CPUBigPlusClusterMinFreq",
-            "Duration": 1000,
-            "Value": "1651200"
-        },
-        {
-            "PowerHint": "INTERACTION",
             "Node": "_proc_sys_walt_sched_boost",
             "Value": "1",
-            "Duration": 183
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_sys_devices_system_cpu_bus_dcvs_DDR_24091000.qcom,bwmon_ddr_min_freq",
             "Value": "800000",
-            "Duration": 183
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_proc_sys_walt_sched_busy_hysteresis_enable_cpus",
             "Value": "248",
-            "Duration": 120
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_proc_sys_walt_sched_busy_hyst_ns",
             "Value": "10000000",
-            "Duration": 120
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_proc_sys_walt_sched_upmigrate",
             "Value": "70 90",
-            "Duration": 120
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_proc_sys_walt_sched_downmigrate",
             "Value": "45 60",
-            "Duration": 120
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForColoc",
-            "Value": "35",
-            "Duration": 120
+            "Value": "0",
+            "Duration": 0
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForBoost",
-            "Value": "51",
-            "Duration": 120
+            "Value": "0",
+            "Duration": 0
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "_sys_devices_system_cpu_bus_dcvs_LLCC_240b7400.qcom,bwmon_llcc_max_freq",
             "Value": "1066000",
-            "Duration": 120
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "GPUMinFreq",
             "Value": "255000000",
-            "Duration": 120
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "GPUIdleTimer",
-            "Value": "58",
-            "Duration": 120
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "UclampTAMin",
-            "Value": "30",
-            "Duration": 149
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "UclampFGMin",
-            "Value": "18",
-            "Duration": 149
+            "Value": "20",
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
-            "Node": "UclampTALatency",
-            "Value": "1",
-            "Duration": 120
+            "Node": "GPUIdleTimer",
+            "Value": "40",
+            "Duration": 100
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "PMQoSCpuDmaLatency",
-            "Value": "67",
-            "Duration": 120
-        },
-        {
-            "PowerHint": "INTERACTIVE",
-            "Node": "SleepDisabled",
-            "Duration": 1000,
-            "Value": "1"
-        },
-        {
-            "PowerHint": "INTERACTIVE",
-            "Node": "PredictionDisabled",
-            "Duration": 1000,
-            "Value": "1"
+            "Value": "44",
+            "Duration": 100
         },
         {
             "PowerHint": "DISPLAY_INACTIVE",
@@ -917,27 +875,39 @@
             "Value": "353000000"
         },
         {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "GPUIdleTimer",
+            "Duration": 0,
+            "Value": "60"
+        },
+        {
             "PowerHint": "GAME",
             "Type": "EndHint",
             "Value": "INTERACTION"
         },
         {
             "PowerHint": "GAME",
-            "Node": "CPULittleClusterMinFreq",
+            "Node": "CPULittleClusterMaxFreq",
             "Duration": 0,
-            "Value": "1843200"
+            "Value": "2016000"
         },
         {
             "PowerHint": "GAME",
-            "Node": "CPUBigClusterMinFreq",
+            "Node": "CPUBigClusterMaxFreq",
             "Duration": 0,
-            "Value": "2611200"
+            "Value": "9999999"
         },
         {
             "PowerHint": "GAME",
-            "Node": "CPUBigPlusClusterMinFreq",
+            "Node": "CPUBigPlusClusterMaxFreq",
             "Duration": 0,
-            "Value": "2668800"
+            "Value": "9999999"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UclampTAMin",
+            "Duration": 0,
+            "Value": "30"
         },
         {
             "PowerHint": "GAME",
@@ -947,9 +917,25 @@
         },
         {
             "PowerHint": "GAME",
-            "Node": "UclampTAMin",
-            "Duration": 0,
-            "Value": "80"
+            "Node": "GPUIdleTimer",
+            "Value": "60",
+            "Duration": 0
+        }
+    ],
+    "AdpfConfig": [
+        {
+            "Name": "ADPF_CPU_LOAD",
+            "Type": "CPU_LOAD",
+            "Target": "CPU",
+            "Value": 0.5,
+            "Duration": 1000
+        },
+        {
+            "Name": "ADPF_GPU_LOAD",
+            "Type": "GPU_LOAD",
+            "Target": "GPU",
+            "Value": 0.5,
+            "Duration": 1000
         }
     ]
 }
