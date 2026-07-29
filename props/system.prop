@@ -16,3 +16,8 @@ ro.ril.disable.power.collapse=0
 ro.ril.fast.dormancy.rule=1 
 ro.ril.fast.dormancy.timeout=5
 ro.mot.eri.losalert.delay=1000
+
+# Inf
+ro.product.marketname=Poco F6
+ro.infinity.soc=Snapdragon® 8s Gen 3
+ro.infinity.camera=50/8MP + 2MP
