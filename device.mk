@@ -282,11 +282,16 @@ PRODUCT_SYSTEM_PROPERTIES += \
     pm.dexopt.install-bulk-secondary-downgraded=speed \
     pm.dexopt.bg-dexopt=speed-profile \
     pm.dexopt.ab-ota=speed-profile \
-    pm.dexopt.inactive=speed \
+    pm.dexopt.inactive=inactive \
     pm.dexopt.cmdline=speed \
     pm.dexopt.first-use=speed-profile \
     pm.dexopt.secondary=speed-profile \
     pm.dexopt.shared=speed
+
+# DEX Preopt configurations
+$(call add-product-dex-preopt-module-config,services,--compiler-filter=speed)
+$(call add-product-dex-preopt-module-config,wifi-service,--compiler-filter=speed)
+$(call add-product-dex-preopt-module-config,framework,--compiler-filter=speed-profile)
 
 PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := speed
 OVERRIDE_DISABLE_DEXOPT_ALL := false
