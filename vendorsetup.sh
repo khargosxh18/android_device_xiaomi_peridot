@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Lineage Priv
-if [ ! -d "vendor/lineage-priv" ]; then
-    git clone https://github.com/khargosxh18/vendor_lineage-priv.git vendor/lineage-priv
-else
-    echo "vendor/lineage-priv already exists, skipping..."
-fi
+#if [ ! -d "vendor/lineage-priv" ]; then
+#    git clone https://github.com/khargosxh18/vendor_lineage-priv.git vendor/lineage-priv
+#else
+#    echo "vendor/lineage-priv already exists, skipping..."
+#fi
 
 # Gamebar
 if [ ! -d "packages/apps/GameBar" ]; then
@@ -15,18 +15,18 @@ else
 fi
 
 # Bcr
-if [ ! -d "vendor/bcr" ]; then
-    git clone https://github.com/kenway214/vendor_bcr.git vendor/bcr
-else
-    echo "vendor/bcr already exists, skipping..."
-fi
+#if [ ! -d "vendor/bcr" ]; then
+#    git clone https://github.com/kenway214/vendor_bcr.git vendor/bcr
+#else
+#    echo "vendor/bcr already exists, skipping..."
+#fi
 
-# Viper4A
-if [ ! -d "packages/apps/ViPER4AndroidFX" ]; then
-    git clone https://github.com/TogoFire/packages_apps_ViPER4AndroidFX.git packages/apps/ViPER4AndroidFX
-else
-    echo "packages/apps/ViPER4Android already exists, skipping..."
-fi
+## Viper4A
+#if [ ! -d "packages/apps/ViPER4AndroidFX" ]; then
+#    git clone https://github.com/TogoFire/packages_apps_ViPER4AndroidFX.git packages/apps/ViPER4AndroidFX
+#else
+#    echo "packages/apps/ViPER4Android already exists, skipping..."
+#fi
 
 # Miui Camera
 if [ ! -d "device/xiaomi/peridot-miuicamera" ]; then
