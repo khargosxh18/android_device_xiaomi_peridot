@@ -250,6 +250,9 @@ ro.config.vc_call_vol_steps=11
 
 # WLAN
 wifi.aware.interface=wifi-aware0
+persist.vendor.dbg.wfc_avail_ovr=1
+persist.vendor.data.iwlan.enable=true
+persist.vendor.dbg.ims_volte_enable=1
 
 # Dex2oat
 dalvik.vm.dex2oat64.enabled=true
