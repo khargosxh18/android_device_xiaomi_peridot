@@ -30,3 +30,30 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     DeviceProduct=$(PRODUCT_SYSTEM_NAME)
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+# Lunch Maintainer Variable
+RISING_MAINTAINER="Khargosxh18"
+
+# Set RISING_MAINTAINER
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    RisingChipset="Snapdragon® 8s Gen 3" \
+    RisingMaintainer="Khargosxh18"
+
+RISING_MAINTAINER := Khargosxh18
+
+# Disable/enable blur support, false by default
+TARGET_ENABLE_BLUR := true
+
+# BCR
+TARGET_INCLUDE_BCR := false
+
+# Whether to ship aperture camera, false by default
+PRODUCT_NO_CAMERA := false
+
+# CORE build flags
+WITH_GMS := true
+TARGET_USES_PICO_GAPPS := true
+
+# VANILLA build with MICROG
+#WITH_GMS := false
+#WITH_MICROG := true
