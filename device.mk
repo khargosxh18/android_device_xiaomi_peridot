@@ -469,7 +469,7 @@ PRODUCT_COPY_FILES += \
 
 # Task Profiles
 PRODUCT_COPY_FILES += \
-    system/core/libprocessgroup/profiles/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json \
+    $(LOCAL_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json \
     system/core/libprocessgroup/profiles/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json
 
 # Telephony
@@ -581,12 +581,10 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
 
 # GameBar Performance Overlay
-$(call inherit-product, packages/apps/GameBar/gamebar.mk)
+#$(call inherit-product, packages/apps/GameBar/gamebar.mk)
 
 # Vendor MiuiCamera
 $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
 
 # NotGameTurbo
 $(call inherit-product, packages/apps/NotGameTurbo/notgameturbo.mk)
-
--include vendor/lineage-priv/keys/keys.mk
