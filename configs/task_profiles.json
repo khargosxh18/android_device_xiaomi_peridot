@@ -305,7 +305,6 @@
         }
       ]
     },
-
     {
       "Name": "VrKernelCapacity",
       "Actions": [
@@ -397,7 +396,6 @@
         }
       ]
     },
-
     {
       "Name": "ProcessCapacityLow",
       "Actions": [
@@ -463,7 +461,6 @@
         }
       ]
     },
-
     {
       "Name": "ServiceCapacityLow",
       "Actions": [
@@ -490,7 +487,6 @@
         }
       ]
     },
-
     {
       "Name": "CameraServiceCapacity",
       "Actions": [
@@ -556,7 +552,6 @@
         }
       ]
     },
-
     {
       "Name": "TimerSlackHigh",
       "Actions": [
@@ -581,7 +576,6 @@
         }
       ]
     },
-
     {
       "Name": "SFMainPolicy",
       "Actions": [
@@ -608,7 +602,6 @@
         }
       ]
     },
-
     {
       "Name": "LowMemoryUsage",
       "Actions": [
@@ -626,7 +619,6 @@
           {
             "Name": "MemSwappiness",
             "Value": "150"
-
           }
         }
       ]
@@ -723,6 +715,119 @@
           {
             "Name": "UClampLatencySensitive",
             "Value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "SCHED_QOS_SENSITIVE_STANDARD",
+      "Actions": [
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampLatencySensitive",
+            "Value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PreferHighCapSet",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params":
+          {
+            "Controller": "cpuset",
+            "Path": "top-app"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ADPF_BALANCED_UI",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params":
+          {
+            "Controller": "cpu",
+            "Path": "top-app"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampMin",
+            "Value": "0"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampLatencySensitive",
+            "Value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ADPF_GAME_SUSTAINED",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params":
+          {
+            "Controller": "cpu",
+            "Path": "top-app"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampMin",
+            "Value": "15"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampLatencySensitive",
+            "Value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ADPF_DOZE_MAX",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params":
+          {
+            "Controller": "cpu",
+            "Path": "foreground"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampMin",
+            "Value": "0"
+          }
+        },
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "UClampLatencySensitive",
+            "Value": "0"
           }
         }
       ]
