@@ -92,4 +92,10 @@
     <string name="charge_mode_cool">Cool</string>
     <string name="charge_mode_nuke">Nuke</string>
 
+    <!-- Quixn Mode -->
+    <string name="quixn_tile_title">Quixn Mode</string>
+    <string name="quixn_tile_subtitle_on">Enabled</string>
+    <string name="quixn_tile_subtitle_off">Disabled</string>
+    <string name="quixn_notification_title">Quixn Mode is active</string>
+    <string name="quixn_notification_text">Not everyone is Quixn. Use at your own risk \u2014 dangerous.</string>
 </resources>
