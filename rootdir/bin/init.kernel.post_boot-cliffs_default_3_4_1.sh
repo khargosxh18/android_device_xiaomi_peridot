@@ -126,6 +126,10 @@ if [ -d /proc/sys/walt ]; then
 	# Turn off scheduler boost at the end
 	echo 0 > /proc/sys/walt/sched_boost
 
+        #  Game Sched Tuning
+	echo "UnityMain,libunity.so,libil2cpp.so,com.miHoYo.,com.pubg.imobile,com.pubg.,com.activision.,com.feralinteractive.tombraider_android.,com.kurogame.wutheringwaves.global.,com.carxtech.sr." > /proc/sys/walt/sched_lib_name
+	echo 255 > /proc/sys/walt/sched_lib_mask_force
+
 	# configure input boost settings
 	echo 1113600 0 0 0 0 0 0 0 > /proc/sys/walt/input_boost/input_boost_freq
 	echo 120 > /proc/sys/walt/input_boost/input_boost_ms
