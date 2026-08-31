@@ -1,5 +1,6 @@
 allow init block_device:blk_file setattr;
 allow init vendor_file:file execute;
+allow init same_process_hal_file:file execute;
 allow init debugfs_tracing_debug:dir mounton;
 allow init vendor_sysfs_battery_supply:file setattr;
 allow init vendor_sysfs_usb_supply:file setattr;
@@ -13,3 +14,5 @@ set_prop(vendor_init, vendor_qcc_prop)
 set_prop(vendor_init, vendor_camera_prop)
 set_prop(vendor_init, vendor_fp_prop)
 set_prop(vendor_init, vendor_fp_info_prop)
+allow vendor_init sysfs:lnk_file setattr;
+allow init proc:file { open write };

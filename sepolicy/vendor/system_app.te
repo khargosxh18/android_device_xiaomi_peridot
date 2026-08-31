@@ -9,3 +9,6 @@ allow system_app sysfs_thermal:file rw_file_perms;
 # Charge 
 allow system_app vendor_sysfs_battery_supply:dir search;
 allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
+
+# Allow to execute Same-Process Vendor files
+allow system_app same_process_hal_file:file { read open getattr map execute };
