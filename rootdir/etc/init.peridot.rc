@@ -276,25 +276,35 @@ on property:persist.vendor.ssr.restart_level=ALL_DISABLE
     write /sys/kernel/cnss/recovery 0
 
 on property:vendor.post_boot.parsed=1
-    # Setup runtime cpus
-    write /dev/cpuset/background/cpus 0-1
-    write /dev/cpuset/restricted/cpus 0-1
-    write /dev/cpuset/system-background/cpus 0-1
+    # Distribute system tasks evenly across Little cores (0-2)
+    write /dev/cpuset/background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/restricted/cpus 0-2
+
+    # Restrict general foreground tasks to Little + Mid cores (0-6)
+    write /dev/cpuset/foreground/cpus 0-6
+    write /dev/cpuset/foreground_window/cpus 0-6
+    write /dev/cpuset/camera-daemon/cpus 0-7
+
+    # Reserve the Cortex-X4 (Core 7) exclusively for the active top app
     write /dev/cpuset/top-app/cpus 0-7
 
-    # IRQ Tuning
-    # IRQ 70: msm_drm0
-    # IRQ 222: kgsl_3d0_irq
-    write /proc/irq/70/smp_affinity_list 2
-    write /proc/irq/222/smp_affinity_list 1
+    # IRQ Tuning (Snapdragon 8s Gen 3 Topology: 0-2 Little, 3-6 Mid, 7 Prime)
+    # IRQ 70: msm_drm0 (Display)
+    # IRQ 222: kgsl_3d0_irq (GPU)
+    # Pin heavy graphics interrupts to Mid cores to prevent Little core bottlenecking
+    write /proc/irq/70/smp_affinity_list 3-6
+    write /proc/irq/222/smp_affinity_list 3-6
 
-    # Battery Saving Tweak
+    # VM & Memory Tuning
     write /proc/sys/kernel/perf_cpu_time_max_percent 15
-    write /proc/sys/vm/dirty_writeback_centisecs 1300
-    write /proc/sys/vm/dirty_ratio 10
-    write /proc/sys/vm/dirty_background_ratio 5
+    write /proc/sys/vm/dirty_writeback_centisecs 1000
+    write /proc/sys/vm/dirty_ratio 20
+    write /proc/sys/vm/dirty_background_ratio 10
     write /proc/sys/vm/stat_interval 1
-    write /proc/sys/vm/swappiness 70
+    
+    # Balanced Swappiness for heavy emulation stability
+    write /proc/sys/vm/swappiness 60
 
     # Configure uclamp
     write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
@@ -318,10 +328,7 @@ on property:vendor.post_boot.parsed=1
     setprop dalvik.vm.dex2oat-threads 6
 
     # Schedutil/WALT tuning
-    write /proc/sys/walt/sched_upmigrate "90 100"
-    write /proc/sys/walt/sched_downmigrate "75 90"
-    write /proc/sys/walt/sched_min_task_util_for_uclamp 0
-    write /proc/sys/walt/sched_busy_hyst_ns 10000000
+    write /proc/sys/walt/sched_busy_hyst_ns 30000000
 
     # Disable multiple kswapd threads
     write /proc/sys/vm/kswapd_threads 1
@@ -349,11 +356,20 @@ on property:sys.boot_completed=1
     chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
     chmod 0664 /sys/class/kgsl/kgsl-3d0/idle_timer
 
+    chown root system /proc/sys/kernel/sched_util_clamp_min_rt_default
+    chmod 0664 /proc/sys/kernel/sched_util_clamp_min_rt_default
+
+    chown root system /sys/block/sda/queue/scheduler
+    chmod 0664 /sys/block/sda/queue/scheduler
+    chown root system /sys/block/sda/queue/read_ahead_kb
+    chmod 0664 /sys/block/sda/queue/read_ahead_kb
+
     write /dev/kmsg "start qrtr-lookup after Boot completed "
     start qrtr-lookup
 
     # Congestion + queue
     write /proc/sys/net/core/default_qdisc fq
+    write /proc/sys/net/ipv4/tcp_congestion_control bbr
 
     # Fast connection setup
     write /proc/sys/net/ipv4/tcp_fastopen 3
