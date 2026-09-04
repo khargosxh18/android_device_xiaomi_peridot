@@ -1,3 +1,83 @@
+# Bypass MCS categories for dynamic app domains (untrusted_app_34:s0:cXXX)
+typeattribute hal_power_default mlstrustedsubject;
+
+# Walt
 allow hal_power_default proc_walt:dir search;
 allow hal_power_default proc_walt:file rw_file_perms;
+allow hal_power_default proc_stat:file r_file_perms;
 allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
+allow hal_power_default sysfs_devices_system_cpu:file rw_file_perms;
+
+# Allow Power HAL to use the scheduler capability (This is legal and bypasses err=1)
+allow hal_power_default self:capability sys_nice;
+allow hal_power_default self:capability sys_admin;
+
+# Allow Power HAL to dynamically boost SurfaceFlinger and all applications
+allow hal_power_default {
+    appdomain
+    surfaceflinger
+    system_server
+}:process { getsched setsched };
+
+# Allow reading /proc/PID/cgroup to manage task profiles safely
+r_dir_file(hal_power_default, appdomain)
+r_dir_file(hal_power_default, surfaceflinger)
+r_dir_file(hal_power_default, system_server)
+
+# Allow hal_power_default to access various sysfs and proc nodes
+allow hal_power_default sysfs:file rw_file_perms;
+allow hal_power_default sysfs:file open;
+
+allow hal_power_default sysfs_gpu:file { read write open };
+allow hal_power_default sysfs_gpu:dir { search };
+allow hal_power_default fwk_stats_service:service_manager find;
+binder_call(hal_power_default, stats_service_server);
+
+# Read input device files
+r_dir_file(hal_power_default, input_device)
+
+# Allow directory search for specific sysfs paths
+allow hal_power_default {
+  vendor_sysfs_devfreq
+  sysfs_msm_subsys
+  sysfs_thermal
+}:dir search;
+
+# Allow read/write to specific files and links in sysfs and proc
+allow hal_power_default {
+  proc
+  vendor_sysfs_devfreq
+  vendor_sysfs_graphics
+  vendor_sysfs_kgsl
+  vendor_sysfs_scsi_host
+} : {
+  file
+  lnk_file
+} rw_file_perms;
+
+# Allow access to latency device
+allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
+allow hal_power_default vendor_latency_device:chr_file ioctl;
+allow hal_power_default touchfeature_device:chr_file { ioctl open read write };
+
+# Dont Audit
+dontaudit hal_power_default self:capability dac_override;
+
+# Rule for hal_power_default to access graphics composer process
+unix_socket_connect(hal_power_default, vendor_pps, hal_graphics_composer_default);
+
+# Allow directory and file R/W for sysfs thermal
+rw_dir_file(hal_power_default, sysfs_thermal)
+
+# Allow read/write thermal sysfs and property
+allow hal_power_default sysfs_thermal:dir r_dir_perms;
+allow hal_power_default sysfs_thermal:file rw_file_perms;
+allow hal_power_default sysfs_thermal:lnk_file r_file_perms;
+allow hal_power_default proc_walt:dir search;
+allow hal_power_default proc_walt:file rw_file_perms;
+allow hal_power_default vendor_sysfs_msm_perf:file rw_file_perms;
+
+# Allow read/write to SDA
+allow hal_power_default vendor_sysfs_sd:file rw_file_perms;
+allow hal_power_default vendor_sysfs_sd:dir search;
+
