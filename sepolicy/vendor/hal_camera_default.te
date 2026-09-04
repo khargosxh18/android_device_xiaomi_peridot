@@ -1,1 +1,6 @@
 binder_call(hal_camera_default, platform_app)
+get_prop(hal_camera_default, vendor_soc_id_prop)
+allow hal_camera_default sysfs_subset_parts:file r_file_perms;
+
+# Required For SDK 37 
+binder_call(hal_camera_default, platform_app_36)

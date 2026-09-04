@@ -1,5 +1,6 @@
 # Allow platform_app to use qspmhal vendor lib
 allow platform_app vendor_file:file { read open getattr map execute };
+typeattribute platform_app system_executes_vendor_violators;
 allow platform_app app_data_file:file execute;
 
 binder_call(platform_app, hal_camera_default)
@@ -15,13 +16,10 @@ allow platform_app hal_aidlbgservice_service:service_manager find;
 allow platform_app hal_camera_mivi_hwservice:hwservice_manager find;
 allow platform_app app_data_file:file execute;
 allow platform_app hal_aidlbgservice_service:service_manager find;
-allow platform_app vendor_audio_prop:file { open read getattr };
-allow platform_app vendor_camera_p3enable_prop:file { read map };
-allow platform_app vendor_audio_prop:file { getattr };
-allow platform_app vendor_displayfeature_prop:file map;
-allow platform_app proc_pressure_cpu:file r_file_perms;
-allow platform_app proc_pressure_io:file r_file_perms;
-allow platform_app proc_pressure_mem:file r_file_perms;
+
+allow platform_app proc_pressure_cpu:file rw_file_perms;
+allow platform_app proc_pressure_io:file rw_file_perms;
+allow platform_app proc_pressure_mem:file rw_file_perms;
 
 binder_call(platform_app, hal_camera_default)
 
@@ -34,3 +32,7 @@ get_prop(platform_app, vendor_panel_info_prop)
 
 allow platform_app vendor_hal_camerapostproc_xiaomi_hwservice:hwservice_manager find;
 binder_call(platform_app, vendor_hal_camerapostproc_xiaomi)
+
+get_prop(platform_app, vendor_audio_prop)
+get_prop(platform_app, vendor_camera_p3enable_prop)
+get_prop(platform_app, vendor_displayfeature_prop)
