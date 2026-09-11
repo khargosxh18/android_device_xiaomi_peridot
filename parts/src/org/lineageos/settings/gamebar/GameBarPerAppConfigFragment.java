@@ -21,14 +21,14 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceFragmentCompat;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GameBarPerAppConfigFragment extends PreferenceFragmentCompat {
+public class GameBarPerAppConfigFragment extends SettingsBasePreferenceFragment {
     public static final String PREF_AUTO_APPS = "game_bar_auto_apps";
 
     @Override

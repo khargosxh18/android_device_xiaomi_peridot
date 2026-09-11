@@ -35,7 +35,7 @@ public class TouchSamplingPerAppActivity extends CollapsingToolbarBaseActivity {
         super.onCreate(savedInstanceState);
 
         mFragment = new TouchSamplingPerAppFragment();
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame, mFragment, TAG_PER_APP_HTSR)
                 .commit();
     }

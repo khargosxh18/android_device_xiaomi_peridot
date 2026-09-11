@@ -22,7 +22,7 @@ import android.os.Bundle;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.R;
@@ -33,7 +33,7 @@ import org.lineageos.settings.R;
  * SharedPreferences key the tile uses, and drives the same enforcement
  * service, so both stay in sync no matter which one was used last.
  */
-public class ChargeSettingsFragment extends PreferenceFragment
+public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     // Must match ChargeTileService.PREF_KEY
