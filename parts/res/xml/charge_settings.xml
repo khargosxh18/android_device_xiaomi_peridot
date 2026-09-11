@@ -24,4 +24,10 @@
         android:entryValues="@array/charge_mode_values"
         android:persistent="false" />
 
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="bypass_charging_pref"
+        android:title="@string/bypass_charging_title"
+        android:summary="@string/bypass_charging_summary_off"
+        android:persistent="false" />
+
 </PreferenceScreen>
