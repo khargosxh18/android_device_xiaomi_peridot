@@ -27,7 +27,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreference;
 
@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class TouchSamplingPerAppFragment extends PreferenceFragment {
+public class TouchSamplingPerAppFragment extends SettingsBasePreferenceFragment {
 
     private static final String TAG = "TouchSamplingPerAppFragment";
     

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 The LineageOS Project
+ * Copyright (C) 2025 kenway214
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.power;
+package org.lineageos.settings.gamebar;
 
 import android.os.Bundle;
-
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+import org.lineageos.settings.R;
 
-public class PowerProfileActivity extends CollapsingToolbarBaseActivity {
-    private static final String TAG_POWER_PROFILE = "power_profile";
-
+public class GameBarPerAppConfigActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getSupportFragmentManager().beginTransaction().replace(
-                com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                new PowerProfileSettingsFragment(), TAG_POWER_PROFILE).commit();
+        setContentView(R.layout.activity_game_bar_app_selector);
+        setTitle("Configure Per-App GameBar");
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, new GameBarPerAppConfigFragment())
+                .commit();
+        }
     }
-}
+} 
