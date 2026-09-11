@@ -293,6 +293,20 @@
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
         </service>
+        <!-- Bypass Charging Tile Service -->
+        <service
+            android:name=".charge.BypassChargingTileService"
+            android:label="@string/bypass_charging_tile_label"
+            android:icon="@drawable/ic_bypass_charging"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
         <!-- Background Charge Service -->
         <service
             android:name=".charge.ChargeEnforcementService"

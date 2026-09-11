@@ -97,6 +97,12 @@
     <!-- Charge Control -->
     <string name="charge_tile_title">Charge Control</string>
     <string name="charge_summary">Limit charging current to reduce heat and battery wear</string>
+    <string name="bypass_charging_title">Bypass charging</string>
+    <string name="bypass_charging_summary_off">Off — normal battery charging</string>
+    <string name="bypass_charging_summary_on">Active — running off adapter power</string>
+    <string name="bypass_charging_summary_pending">Switching…</string>
+    <string name="bypass_charging_summary_unavailable">Not supported on this kernel</string>
+    <string name="bypass_charging_tile_label">Bypass Chg</string>
     <string name="charge_mode_ok">OK</string>
     <string name="charge_mode_cool">Cool</string>
     <string name="charge_mode_nuke">Nuke</string>
