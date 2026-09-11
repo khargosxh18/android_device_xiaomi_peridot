@@ -23,7 +23,7 @@ import android.service.quicksettings.TileService;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.R;
@@ -37,7 +37,7 @@ import org.lineageos.settings.R;
  * comparison of saved vs. current profile. This keeps the "apply a profile"
  * logic in exactly one place.
  */
-public class PowerProfileSettingsFragment extends PreferenceFragment
+public class PowerProfileSettingsFragment extends SettingsBasePreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     // Must match PowerProfileTileService.POWER_PROFILE_PREF_KEY

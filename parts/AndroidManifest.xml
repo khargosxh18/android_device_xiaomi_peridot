@@ -44,7 +44,7 @@
         android:persistent="true"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
-        android:theme="@style/Theme.SubSettingsBase">
+        android:theme="@style/Theme.SubSettingsBase.Expressive">
 
         <receiver
             android:name=".BootCompletedReceiver"
@@ -172,7 +172,7 @@
         <activity
             android:name=".touchsampling.TouchSamplingSettingsActivity"
             android:label="@string/htsr_enable_title"
-            android:theme="@style/Theme.SubSettingsBase"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
@@ -206,7 +206,7 @@
         <activity
             android:name=".touchsampling.TouchSamplingPerAppActivity"
             android:label="@string/per_app_htsr_title"
-            android:theme="@style/Theme.SubSettingsBase"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
             android:exported="false" />        
 
         <!-- Tile Entry Activity -->
@@ -214,7 +214,7 @@
              android:name=".TileEntryActivity"
              android:label="@string/app_title"
              android:exported="true"
-             android:theme="@style/Theme.SubSettingsBase">
+             android:theme="@style/Theme.SubSettingsBase.Expressive">
              <intent-filter>
                  <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
              </intent-filter>
@@ -226,7 +226,7 @@
             android:label="@string/app_title"
             android:icon="@drawable/ic_launcher_xiaomiparts"
             android:exported="true"
-            android:theme="@style/Theme.SubSettingsBase">
+            android:theme="@style/Theme.SubSettingsBase.Expressive">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -237,21 +237,21 @@
         <activity
             android:name=".charge.ChargeActivity"
             android:label="@string/charge_tile_title"
-            android:theme="@style/Theme.SubSettingsBase"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
             android:exported="false" />
 
         <!-- Power profile settings screen -->
         <activity
             android:name=".power.PowerProfileActivity"
             android:label="@string/powerprofile_title"
-            android:theme="@style/Theme.SubSettingsBase"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
             android:exported="false" />
 
         <!-- GameBar Overlay -->
         <activity
             android:name=".gamebar.GameBarSettingsActivity"
             android:label="@string/game_bar_title"
-            android:theme="@style/Theme.SubSettingsBase"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
@@ -320,6 +320,6 @@
 		 <activity
             android:name=".gamebar.GameBarPerAppConfigActivity"
             android:exported="false"
-            android:theme="@style/Theme.SubSettingsBase" /> 
+            android:theme="@style/Theme.SubSettingsBase.Expressive" /> 
     </application>
 </manifest>

@@ -29,7 +29,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -39,7 +39,7 @@ import org.lineageos.settings.CustomSeekBarPreference
 import org.lineageos.settings.R
 import org.lineageos.settings.utils.TileUtils
 
-class SaturationFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+class SaturationFragment : SettingsBasePreferenceFragment(), Preference.OnPreferenceChangeListener {
 
     private var mViewArrowPrevious: View? = null
     private var mViewArrowNext: View? = null

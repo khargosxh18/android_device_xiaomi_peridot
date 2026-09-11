@@ -18,13 +18,13 @@ package org.lineageos.settings;
 
 import android.os.Bundle;
 
-import androidx.preference.PreferenceFragment;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
 /**
  * Preference-list entry point. Each row's destination is declared via <intent>
  * in R.xml.main_settings, so no click-handling code is needed here.
  */
-public class MainSettingsFragment extends PreferenceFragment {
+public class MainSettingsFragment extends SettingsBasePreferenceFragment {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
