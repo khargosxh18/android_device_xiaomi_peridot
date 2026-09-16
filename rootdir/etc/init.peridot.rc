@@ -420,6 +420,10 @@ on property:sys.boot_completed=1
     # Restrict unbound kernel workqueues to Little cores (0-2)
     write /sys/devices/virtual/workqueue/cpumask 7
 
+    # Enable Bypass Node To be Toggleable
+    chown system system /sys/class/qcom-battery/bypass_charging_enable
+    chmod 0664 /sys/class/qcom-battery/bypass_charging_enable
+
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
 
