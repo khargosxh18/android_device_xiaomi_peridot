@@ -243,6 +243,21 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="FPS Recording">
+
+        <SwitchPreferenceCompat
+            android:key="game_bar_fps_record_bubble_enable"
+            android:title="@string/fps_record_bubble_title"
+            android:summary="@string/fps_record_bubble_summary"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="game_bar_fps_record_view"
+            android:title="@string/fps_record_title"
+            android:summary="@string/fps_record_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="Per-App GameBar">
 
         <SwitchPreferenceCompat

@@ -58,6 +58,10 @@ public class GameBar {
         }
         return sInstance;
     }
+
+    public static synchronized boolean isShowing() {
+        return sInstance != null && sInstance.mIsShowing;
+    }
     
     public static synchronized void destroyInstance() {
         if (sInstance != null) {
@@ -383,6 +387,12 @@ public class GameBar {
             statViews.add(createStatLine("FPS", fpsStr));
         }
 
+        // 1.1) Frame time - derived from FPS
+        String frameTimeStr = "N/A";
+        if (fpsVal > 0) {
+            frameTimeStr = String.format(Locale.getDefault(), "%.2f", 1000.0 / fpsVal);
+        }
+
         // 2) Battery temp
         String batteryTempStr = "N/A";
         if (mShowBatteryTemp) {
@@ -406,11 +416,13 @@ public class GameBar {
         }
 
         // 4) CPU freq
-        if (mShowCpuClock) {
-            List<String> freqs = GameBarCpuInfo.getCpuFrequencies();
-            if (!freqs.isEmpty()) {
-                statViews.add(buildCpuFreqView(freqs));
-            }
+        String cpuClockStr = "N/A";
+        List<String> freqs = GameBarCpuInfo.getCpuFrequencies();
+        if (!freqs.isEmpty()) {
+            cpuClockStr = String.join("; ", freqs);
+        }
+        if (mShowCpuClock && !freqs.isEmpty()) {
+            statViews.add(buildCpuFreqView(freqs));
         }
 
         // 5) CPU temp
@@ -421,42 +433,38 @@ public class GameBar {
         }
 
         // 6) RAM usage
-        String ramStr = "N/A";
+        String ramStr = GameBarMemInfo.getRamUsage();
         if (mShowRam) {
-            ramStr = GameBarMemInfo.getRamUsage();
             statViews.add(createStatLine("RAM", "N/A".equals(ramStr) ? "N/A" : ramStr + " MB"));
         }
 
         // 6.1) RAM speed
+        String ramSpeedStr = GameBarMemInfo.getRamSpeed();
         if (mShowRamSpeed) {
-            String ramSpeedStr = GameBarMemInfo.getRamSpeed();
             statViews.add(createStatLine("RAM Freq", ramSpeedStr));
         }
 
         // 6.2) RAM temp
+        String ramTempStr = GameBarMemInfo.getRamTemp();
         if (mShowRamTemp) {
-            String ramTempStr = GameBarMemInfo.getRamTemp();
             statViews.add(createStatLine("RAM Temp", ramTempStr));
         }
 
         // 7) GPU usage
-        String gpuUsageStr = "N/A";
+        String gpuUsageStr = GameBarGpuInfo.getGpuUsage();
         if (mShowGpuUsage) {
-            gpuUsageStr = GameBarGpuInfo.getGpuUsage();
             statViews.add(createStatLine("GPU", "N/A".equals(gpuUsageStr) ? "N/A" : gpuUsageStr + "%"));
         }
 
         // 8) GPU clock
-        String gpuClockStr = "N/A";
+        String gpuClockStr = GameBarGpuInfo.getGpuClock();
         if (mShowGpuClock) {
-            gpuClockStr = GameBarGpuInfo.getGpuClock();
             statViews.add(createStatLine("GPU Freq", "N/A".equals(gpuClockStr) ? "N/A" : gpuClockStr + "MHz"));
         }
 
         // 9) GPU temp
-        String gpuTempStr = "N/A";
+        String gpuTempStr = GameBarGpuInfo.getGpuTemp();
         if (mShowGpuTemp) {
-            gpuTempStr = GameBarGpuInfo.getGpuTemp();
             statViews.add(createStatLine("GPU Temp", "N/A".equals(gpuTempStr) ? "N/A" : gpuTempStr + "°C"));
         }
 
@@ -485,16 +493,42 @@ public class GameBar {
             String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
             String pkgName = ForegroundAppDetector.getForegroundPackageName(mContext);
 
+            SharedPreferences loggingPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            String logFps = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_FPS, true) ? fpsStr : "N/A";
+            String logFrameTime = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_FRAME_TIME, true) ? frameTimeStr : "N/A";
+            String logBatteryTemp = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_BATTERY_TEMP, true) ? batteryTempStr : "N/A";
+            String logCpuUsage = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_CPU_USAGE, true) ? cpuUsageStr : "N/A";
+            String logCpuClock = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_CPU_CLOCK, true) ? cpuClockStr : "N/A";
+            String logCpuTemp = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_CPU_TEMP, true) ? cpuTempStr : "N/A";
+            String logRam = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_RAM, true) ? ramStr : "N/A";
+            String logRamSpeed = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_RAM_SPEED, true) ? ramSpeedStr : "N/A";
+            String logRamTemp = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_RAM_TEMP, true) ? ramTempStr : "N/A";
+            String logGpuUsage = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_GPU_USAGE, true) ? gpuUsageStr : "N/A";
+            String logGpuClock = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_GPU_CLOCK, true) ? gpuClockStr : "N/A";
+            String logGpuTemp = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_GPU_TEMP, true) ? gpuTempStr : "N/A";
+            String logBatteryLevel = GameBarBatteryInfo.INSTANCE.getBatteryLevelPercent(mContext);
+            String logPowerWatt = GameBarBatteryInfo.INSTANCE.getBatteryPowerWatt(mContext);
+            String logAppRamUsage = loggingPrefs.getBoolean(GameBarLoggingPrefs.PREF_LOG_RAM, true)
+                    ? GameBarMemInfo.getAppRamUsage(mContext, pkgName) : "N/A";
+
             GameDataExport.getInstance().addOverlayData(
                     dateTime,
                     pkgName,
-                    fpsStr,
-                    batteryTempStr,
-                    cpuUsageStr,
-                    cpuTempStr,
-                    gpuUsageStr,
-                    gpuClockStr,
-                    gpuTempStr
+                    logFps,
+                    logFrameTime,
+                    logBatteryTemp,
+                    logCpuUsage,
+                    logCpuClock,
+                    logCpuTemp,
+                    logRam,
+                    logRamSpeed,
+                    logRamTemp,
+                    logGpuUsage,
+                    logGpuClock,
+                    logGpuTemp,
+                    logBatteryLevel,
+                    logPowerWatt,
+                    logAppRamUsage
             );
         }
 
