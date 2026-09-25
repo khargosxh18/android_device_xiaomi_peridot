@@ -99,3 +99,6 @@
 
 # QSPM
 /(vendor|system/vendor)/lib(64)?/vendor\.qti\.qspmhal@1\.0\.so    u:object_r:same_process_hal_file:s0
+
+# QRTR
+/(vendor|system/vendor)/bin/qrtr-lookup                           u:object_r:vendor_qrtr_exec:s0
