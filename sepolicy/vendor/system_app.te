@@ -12,3 +12,11 @@ allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
 
 # Allow to execute Same-Process Vendor files
 allow system_app same_process_hal_file:file { read open getattr map execute };
+
+# Allow GameBar to read CPU usage stats (/proc/stat)
+allow system_app proc_stat:file r_file_perms;
+
+# Allow GameBar to read GPU usage, clock, and thermals (KGSL sysfs)
+allow system_app vendor_sysfs_kgsl:dir search;
+allow system_app vendor_sysfs_kgsl:file r_file_perms;
+allow system_app vendor_sysfs_kgsl_gpuclk:file r_file_perms;
