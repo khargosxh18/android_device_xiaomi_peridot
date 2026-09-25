@@ -59,6 +59,16 @@
     <string name="game_bar_tile_label">GameBar</string>
     <string name="game_bar_tile_description">Toggle the game overlay</string>
 
+    <!-- FPS Record / graph reports -->
+    <string name="fps_record_title">FPS Record</string>
+    <string name="fps_record_summary">View per-session FPS logs with summary and graphs</string>
+    <string name="fps_record_empty">No FPS record sessions found</string>
+    <string name="fps_record_stats_title">Session Summary</string>
+    <string name="fps_record_bubble_title">Recording bubble</string>
+    <string name="fps_record_bubble_summary">Floating button to start/stop FPS recording for the current app</string>
+    <string name="toast_manual_logging_started">%s: Manual logging started</string>
+    <string name="toast_manual_logging_started_pkg">Manual logging started for %s</string>
+
     <!-- Clear Speaker -->
    <string name="clear_speaker_title">Clear speaker</string>
    <string name="clear_speaker_summary">Play a 30-second audio to clear the speaker</string>

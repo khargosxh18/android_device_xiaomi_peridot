@@ -84,6 +84,40 @@ public class GameBarMemInfo {
         return "N/A";
     }
 
+    public static String getAppRamUsage(android.content.Context context, String packageName) {
+        try {
+            android.app.ActivityManager am = (android.app.ActivityManager)
+                    context.getSystemService(android.content.Context.ACTIVITY_SERVICE);
+            java.util.List<android.app.ActivityManager.RunningAppProcessInfo> processes =
+                    am.getRunningAppProcesses();
+            if (processes == null) {
+                return "N/A";
+            }
+            java.util.List<Integer> pidList = new java.util.ArrayList<>();
+            for (android.app.ActivityManager.RunningAppProcessInfo proc : processes) {
+                if (packageName.equals(proc.processName)) {
+                    pidList.add(proc.pid);
+                }
+            }
+            if (pidList.isEmpty()) {
+                return "N/A";
+            }
+            int[] pids = new int[pidList.size()];
+            for (int i = 0; i < pidList.size(); i++) {
+                pids[i] = pidList.get(i);
+            }
+            android.os.Debug.MemoryInfo[] memInfos = am.getProcessMemoryInfo(pids);
+            int totalPssKb = 0;
+            for (android.os.Debug.MemoryInfo info : memInfos) {
+                totalPssKb += info.getTotalPss();
+            }
+            return String.valueOf(totalPssKb / 1024);
+        } catch (Exception e) {
+            // ignore
+        }
+        return "N/A";
+    }
+
     public static String getRamTemp() {
         String path = "/sys/class/thermal/thermal_zone27/temp";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {

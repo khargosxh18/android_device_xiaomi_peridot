@@ -335,5 +335,25 @@
             android:name=".gamebar.GameBarPerAppConfigActivity"
             android:exported="false"
             android:theme="@style/Theme.SubSettingsBase.Expressive" /> 
+
+        <activity
+            android:name=".gamebar.FpsRecordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SubSettingsBase.Expressive" />
+
+        <service
+            android:name=".gamebar.FpsRecordControlOverlayService"
+            android:exported="false" />
+
+        <!-- FileProvider for sharing FPS record charts/stats -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     </application>
 </manifest>

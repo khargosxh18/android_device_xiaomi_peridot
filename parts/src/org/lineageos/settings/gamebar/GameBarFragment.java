@@ -121,6 +121,31 @@ public class GameBarFragment extends SettingsBasePreferenceFragment {
             });
         }
 
+        androidx.preference.SwitchPreferenceCompat fpsRecordBubblePref =
+                findPreference("game_bar_fps_record_bubble_enable");
+        if (fpsRecordBubblePref != null) {
+            fpsRecordBubblePref.setOnPreferenceChangeListener((pref, newValue) -> {
+                boolean enabled = (boolean) newValue;
+                if (enabled && !Settings.canDrawOverlays(getContext())) {
+                    Toast.makeText(getContext(), R.string.overlay_permission_required, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                Intent svcIntent = new Intent(getContext(), FpsRecordControlOverlayService.class);
+                svcIntent.setAction(FpsRecordControlOverlayService.ACTION_SET_ENABLED);
+                svcIntent.putExtra(FpsRecordControlOverlayService.EXTRA_ENABLED, enabled);
+                getContext().startService(svcIntent);
+                return true;
+            });
+        }
+
+        Preference fpsRecordViewPref = findPreference("game_bar_fps_record_view");
+        if (fpsRecordViewPref != null) {
+            fpsRecordViewPref.setOnPreferenceClickListener(pref -> {
+                startActivity(new Intent(getContext(), FpsRecordActivity.class));
+                return true;
+            });
+        }
+
         if (mMasterSwitch != null) {
             mMasterSwitch.setOnPreferenceChangeListener((pref, newValue) -> {
                 boolean enabled = (boolean) newValue;
