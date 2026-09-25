@@ -465,15 +465,6 @@ service vendor.sensors-hal-multihal /vendor/bin/hw/android.hardware.sensors-serv
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
 
-service vendor.qti.hardware.display.allocator /vendor/bin/hw/vendor.qti.hardware.display.allocator-service
-    override
-    class hal animation
-    user system
-    group graphics drmrpc
-    capabilities SYS_NICE
-    onrestart restart surfaceflinger
-    task_profiles ProcessCapacityHigh HighPerformance
-
 service vendor.qti.hardware.display.composer /vendor/bin/hw/vendor.qti.hardware.display.composer-service
     override
     class hal animation
