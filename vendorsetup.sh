@@ -41,3 +41,13 @@ if [ ! -f "vendor/xiaomi/peridot-miuicamera/proprietary/system/priv-app/MiuiCame
 else
     echo "vendor/xiaomi/peridot-miuicamera already exists, skipping..."
 fi
+
+# Patch
+info "Applying AV patch for dolby"
+cd frameworks/av
+git remote add lab https://github.com/peridot-lab/yaap_frameworks_av.git && git fetch lab && git cherry-pick 699ff01 || fatal "frameworks/av patch  not failed!"
+info "Patch applied successfully"
+croot
+
+success "All resources cloned successfully!"
+return 0
