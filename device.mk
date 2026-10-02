@@ -583,6 +583,3 @@ $(call inherit-product-if-exists, device/xiaomi/peridot-miuicamera/device.mk)
 
 # NotGameTurbo
 $(call inherit-product, packages/apps/NotGameTurbo/notgameturbo.mk)
-
-# sign
--include vendor/lineage-priv/keys/keys.mk
