@@ -16,10 +16,8 @@
 
 package org.lineageos.settings.power;
 
-import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.service.quicksettings.TileService;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -30,12 +28,12 @@ import org.lineageos.settings.R;
 
 /**
  * Lets the user pick a power profile directly, instead of only being able to
- * cycle through it via the QS tile. Deliberately does NOT duplicate
- * PowerProfileTileService's sysfs/notification/battery-saver logic here —
- * it only saves the desired profile and asks the tile to reconcile itself
- * via requestListeningState(), which re-runs its existing onStartListening()
- * comparison of saved vs. current profile. This keeps the "apply a profile"
- * logic in exactly one place.
+ * cycle through it via the QS tile. Applies the change immediately via
+ * PowerProfileTileService.applyProfileExternally() — do NOT go back to only
+ * saving the pref and calling TileService.requestListeningState() to ask the
+ * tile to apply it: that API is best-effort and most SystemUI forks only
+ * honor it while the tile is actually visible (QS pulled down), so nothing
+ * would actually change until then.
  */
 public class PowerProfileSettingsFragment extends SettingsBasePreferenceFragment
         implements Preference.OnPreferenceChangeListener {
@@ -64,11 +62,11 @@ public class PowerProfileSettingsFragment extends SettingsBasePreferenceFragment
         }
 
         String value = (String) newValue;
-        getPrefs().edit().putInt(POWER_PROFILE_PREF_KEY, Integer.parseInt(value)).apply();
         updateSummary(value);
 
-        TileService.requestListeningState(getActivity(),
-                new ComponentName(getActivity(), PowerProfileTileService.class));
+        // Applies sysfs/sysprop/battery-saver/notification/pref immediately —
+        // does not depend on the tile ever being bound.
+        PowerProfileTileService.applyProfileExternally(getActivity(), Integer.parseInt(value));
         return true;
     }
 

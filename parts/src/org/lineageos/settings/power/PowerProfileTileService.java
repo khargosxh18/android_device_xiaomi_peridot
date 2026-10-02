@@ -9,6 +9,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -202,6 +203,116 @@ public class PowerProfileTileService extends TileService {
         updateTileState(profile, true);
         
         Log.d(TAG, "Applied power profile: " + getString(profile.getNameResId()));
+    }
+
+    /**
+     * Entry point for callers that are NOT the bound TileService instance
+     * (e.g. PowerProfileSettingsFragment). Performs the same sysfs/sysprop/
+     * battery-saver/notification work as applyProfile() above, but works even
+     * when the tile has never been bound this boot.
+     *
+     * TileService.requestListeningState() does NOT guarantee onStartListening()
+     * runs — most SystemUI forks only honor it while the tile is actually
+     * visible, i.e. QS pulled down. Relying on it to apply the change meant
+     * nothing happened until QS was opened. This does the real work directly,
+     * then requestListeningState() is just a best-effort visual refresh.
+     */
+    public static void applyProfileExternally(Context context, int profileValue) {
+        PowerProfile profile = PowerProfile.fromValue(profileValue);
+
+        if (!FileUtils.writeLine(POWER_PROFILE_PATH, String.valueOf(profile.getValue()))) {
+            Log.e(TAG, "applyProfileExternally: failed to write power profile: " + profile);
+            return;
+        }
+
+        try {
+            SystemProperties.set(SYS_PERF_PROP, profile.getSysPropValue());
+        } catch (Exception e) {
+            Log.w(TAG, "applyProfileExternally: failed to set system property: " + e.getMessage());
+        }
+
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putInt(POWER_PROFILE_PREF_KEY, profile.getValue())
+                .apply();
+
+        boolean isCharging = isChargingExternally(context);
+        PowerManager pm = context.getSystemService(PowerManager.class);
+        boolean saverCurrentlyOn = pm != null && pm.isPowerSaveMode();
+
+        switch (profile) {
+            case BATTERY:
+                setBatterySaverExternally(context, saverCurrentlyOn, !isCharging);
+                cancelPerformanceNotificationExternally(context);
+                break;
+            case PERFORMANCE:
+            case GAMING:
+                setBatterySaverExternally(context, saverCurrentlyOn, false);
+                showPerformanceNotificationExternally(context, profile);
+                break;
+            default:
+                setBatterySaverExternally(context, saverCurrentlyOn, false);
+                cancelPerformanceNotificationExternally(context);
+                break;
+        }
+
+        // Best-effort: refreshes the tile's icon/label immediately if QS
+        // happens to be open right now. Not required for the profile change
+        // itself to take effect anymore.
+        TileService.requestListeningState(context,
+                new ComponentName(context, PowerProfileTileService.class));
+
+        Log.d(TAG, "applyProfileExternally: applied " + profile);
+    }
+
+    private static boolean isChargingExternally(Context context) {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+        if (batteryStatus == null) return false;
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+               status == BatteryManager.BATTERY_STATUS_FULL;
+    }
+
+    private static void setBatterySaverExternally(Context context, boolean currentlyOn, boolean wantOn) {
+        if (currentlyOn == wantOn) return;
+        Settings.Global.putInt(context.getContentResolver(),
+                Settings.Global.LOW_POWER_MODE, wantOn ? 1 : 0);
+    }
+
+    private static void showPerformanceNotificationExternally(Context context, PowerProfile profile) {
+        NotificationManager nm = context.getSystemService(NotificationManager.class);
+        if (nm == null) return;
+        ensureNotificationChannelExternally(context, nm);
+
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        int contentTextResId = profile == PowerProfile.GAMING
+                ? R.string.gaming_mode_notification
+                : R.string.perf_mode_notification;
+
+        Notification notification = new Notification.Builder(context, TAG)
+                .setContentTitle(context.getString(profile.getNameResId()))
+                .setContentText(context.getString(contentTextResId))
+                .setSmallIcon(profile.getIconResId())
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .build();
+
+        nm.notify(NOTIFICATION_ID_PERFORMANCE, notification);
+    }
+
+    private static void cancelPerformanceNotificationExternally(Context context) {
+        NotificationManager nm = context.getSystemService(NotificationManager.class);
+        if (nm != null) nm.cancel(NOTIFICATION_ID_PERFORMANCE);
+    }
+
+    private static void ensureNotificationChannelExternally(Context context, NotificationManager nm) {
+        NotificationChannel channel = new NotificationChannel(
+                TAG, context.getString(R.string.perf_mode_title), NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setBlockable(true);
+        nm.createNotificationChannel(channel);
     }
 
     private boolean writeProfileToSysfs(PowerProfile profile) {
