@@ -76,4 +76,14 @@
             android:targetClass="org.lineageos.settings.charge.ChargeActivity" />
     </Preference>
 
+    <Preference
+        android:key="entry_game_bar"
+        android:title="@string/game_bar_title"
+        android:summary="@string/game_bar_summary"
+        android:icon="@drawable/ic_gamebar">
+        <intent
+            android:targetPackage="org.lineageos.settings"
+            android:targetClass="org.lineageos.settings.gamebar.GameBarSettingsActivity" />
+    </Preference>
+
 </PreferenceScreen>
