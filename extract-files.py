@@ -91,6 +91,8 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace(r'(?m)^gettid:\s*1\s*$', 'gettid: 1\nlseek: 1'),
     'vendor/etc/seccomp_policy/qesdksec.policy': blob_fixup()
         .regex_replace(r'(?m)^setpriority:\s*1\s*$', 'setpriority: 1\nlseek: 1'),
+    'vendor/lib64/libcodec2_soft_ac4dec.so': blob_fixup()
+        .sig_replace('fd 7b be a9 f4 4f 01 a9 fd 03 00 91 14 06 00 90', '80 35 86 52 80 00 a0 72 c0 03 5f d6 1f 20 03 d5'),
     'system_ext/etc/init/qspa_system.rc': blob_fixup()
         .regex_replace(r'\$\{ro\.boot\.vendor\.qspa:-default\}', 'default'),
     'system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml': blob_fixup()
