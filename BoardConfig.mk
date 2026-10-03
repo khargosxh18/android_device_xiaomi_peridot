@@ -118,8 +118,8 @@ TARGET_KERNEL_CONFIG := \
 
 BOARD_KERNEL_CMDLINE := \
     sysctl.kernel.firmware_config.force_sysfs_fallback=1 \
-    swinfo.fingerprint=peridot:$(LINEAGE_VERSION) \
-    mtdoops.fingerprint=peridot:$(LINEAGE_VERSION)
+    swinfo.fingerprint=peridot:$(ASCP_VERSION) \
+    mtdoops.fingerprint=peridot:$(ASCP_VERSION)
     androidboot.init_fatal_reboot_target=recovery
 
 BOARD_BOOTCONFIG := \
@@ -180,7 +180,7 @@ TARGET_KERNEL_EXT_MODULES := \
     nxp/opensource/driver
 
 # Partitions
--include vendor/lineage/config/BoardConfigReservedSize.mk
+-include vendor/custom/config/BoardConfigReservedSize.mk
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
@@ -242,8 +242,8 @@ TARGET_USERIMAGES_USE_F2FS := true
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Sepolicy
-include device/lineage/sepolicy/libperfmgr/sepolicy.mk
-include device/lineage/sepolicy/libion/sepolicy.mk
+include device/custom/sepolicy/libperfmgr/sepolicy.mk
+include device/custom/sepolicy/libion/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 include device/xiaomi/peridot/sepolicy/SEPolicy-diag.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
