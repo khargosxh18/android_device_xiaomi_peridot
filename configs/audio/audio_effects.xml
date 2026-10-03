@@ -79,6 +79,7 @@
         <library name="mispatializer" path="libspatializer.so"/>
         <library name="misoundfx" path="libmisoundfx.so"/>
         <!--DOLBY START-->
+        <library name="shoebox" path="libshoebox.so"/>
         <!--DOLBY DAP-->
         <!--AUDIO MOD-->
         <library name="dap" path="libhwdap.so"/>
