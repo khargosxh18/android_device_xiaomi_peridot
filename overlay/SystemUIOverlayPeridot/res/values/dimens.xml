@@ -14,5 +14,5 @@
          relies on this value will not be sized correctly. -->
     <item name="pixel_pitch" type="dimen" format="float">56.96</item>
     <!-- Blur radius behind Notification Shade -->
-    <dimen name="max_shade_window_blur_radius">10dp</dimen>
+    <dimen name="max_shade_window_blur_radius">13dp</dimen>
 </resources>
