@@ -126,6 +126,7 @@ debug.sf.enable_gl_backpressure=0
 debug.sf.enable_transaction_tracing=false
 debug.sf.frame_rate_multiple_threshold=120
 debug.sf.hw=0
+debug.sf.hwc.min.duration=8400000
 debug.sf.late.app.duration.120=11666666
 debug.sf.late.app.duration.144=10333333
 debug.sf.late.app.duration.180=10333333
