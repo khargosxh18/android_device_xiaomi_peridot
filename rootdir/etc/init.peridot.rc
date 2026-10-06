@@ -274,6 +274,7 @@ on property:vendor.post_boot.parsed=1
     write /dev/cpuset/background/cpus 0-1
     write /dev/cpuset/restricted/cpus 0-2
     write /dev/cpuset/foreground/cpus 0-6
+    write /dev/cpuset/foreground_window/cpus 0-6
     write /dev/cpuset/system-background/cpus 0-2
     write /dev/cpuset/top-app/cpus 0-7
 
@@ -283,6 +284,12 @@ on property:vendor.post_boot.parsed=1
     # CPUSets
     setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
     setprop dalvik.vm.dex2oat-threads 6
+
+    # Memory Tuning
+    write /proc/sys/vm/dirty_writeback_centisecs 1000
+    write /proc/sys/vm/dirty_ratio 20
+    write /proc/sys/vm/dirty_background_ratio 10
+    write /proc/sys/vm/swappiness 60
 
     # Disable multiple kswapd threads
     write /proc/sys/vm/kswapd_threads 1
@@ -310,11 +317,20 @@ on property:sys.boot_completed=1
     chmod 0664 /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
     chmod 0664 /sys/class/kgsl/kgsl-3d0/idle_timer
 
+    chown root system /proc/sys/kernel/sched_util_clamp_min_rt_default
+    chmod 0664 /proc/sys/kernel/sched_util_clamp_min_rt_default
+
+    chown root system /sys/block/sda/queue/scheduler
+    chmod 0664 /sys/block/sda/queue/scheduler
+    chown root system /sys/block/sda/queue/read_ahead_kb
+    chmod 0664 /sys/block/sda/queue/read_ahead_kb
+
     write /dev/kmsg "start qrtr-lookup after Boot completed "
     start qrtr-lookup
 
     # Congestion + queue
     write /proc/sys/net/core/default_qdisc fq
+    write /proc/sys/net/ipv4/tcp_congestion_control bbr
 
     # Fast connection setup
     write /proc/sys/net/ipv4/tcp_fastopen 3
