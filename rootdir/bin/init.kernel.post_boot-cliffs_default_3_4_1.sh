@@ -131,7 +131,7 @@ if [ -d /proc/sys/walt ]; then
         echo 248 > /proc/sys/walt/sched_lib_mask_force
 
 	# configure input boost settings
-	echo 1113600 0 0 0 0 0 0 0 > /proc/sys/walt/input_boost/input_boost_freq
+	echo 787200 0 0 0 0 0 0 0 > /proc/sys/walt/input_boost/input_boost_freq
 	echo 120 > /proc/sys/walt/input_boost/input_boost_ms
 
 	echo "walt" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
