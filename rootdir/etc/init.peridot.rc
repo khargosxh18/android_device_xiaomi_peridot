@@ -280,6 +280,22 @@ on property:vendor.post_boot.parsed=1
 
     # Configure uclamp
     write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/nnapi-hal/cpu.uclamp.latency_sensitive 1
+
+    # uclamp.max
+    write /dev/cpuctl/background/cpu.uclamp.max 30
+    write /dev/cpuctl/system-background/cpu.uclamp.max 40
+    write /dev/cpuctl/dex2oat/cpu.uclamp.max 70
+
+    # cpu.shares
+    write /dev/cpuctl/top-app/cpu.shares 4096
+    write /dev/cpuctl/foreground/cpu.shares 3072
+    write /dev/cpuctl/system/cpu.shares 3072
+    write /dev/cpuctl/camera-daemon/cpu.shares 3072
+    write /dev/cpuctl/nnapi-hal/cpu.shares 2048
+    write /dev/cpuctl/system-background/cpu.shares 768
+    write /dev/cpuctl/background/cpu.shares 512
+    write /dev/cpuctl/dex2oat/cpu.shares 512
 
     # CPUSets
     setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
