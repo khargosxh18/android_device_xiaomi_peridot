@@ -113,6 +113,11 @@
     <string name="bypass_charging_summary_pending">Switching…</string>
     <string name="bypass_charging_summary_unavailable">Not supported on this kernel</string>
     <string name="bypass_charging_tile_label">Bypass Chg</string>
+    <string name="bypass_mode_title">Bypass thermal mode</string>
+    <string name="bypass_mode_locked">%1$s — turn bypass off to change</string>
+    <string name="bypass_mode_navigation">Navigation</string>
+    <string name="bypass_mode_tgame">TGame</string>
+    <string name="bypass_mode_nolimit">No limit</string>
     <string name="charge_mode_ok">OK</string>
     <string name="charge_mode_cool">Cool</string>
     <string name="charge_mode_nuke">Nuke</string>

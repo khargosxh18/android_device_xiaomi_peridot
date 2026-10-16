@@ -16,6 +16,10 @@
 
 package org.lineageos.settings.charge;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import org.lineageos.settings.utils.FileUtils;
 
 /**
@@ -32,7 +36,14 @@ import org.lineageos.settings.utils.FileUtils;
  */
 public final class BypassChargingUtils {
 
+    private static final String TAG = "BypassChargingUtils";
+    private static final String PREFS = "bypass_charging";
+    private static final String KEY_MODE = "mode";
+
     private static final String NODE = "/sys/class/qcom-battery/bypass_charging_enable";
+    // Lists every mode with the active one bracketed, e.g. "[navigation] tgame nolimit".
+    // Write a mode name to select it; it is applied on the next enable.
+    private static final String MODE_NODE = "/sys/class/qcom-battery/bypass_charging_mode";
 
     public enum State {
         OFF,
@@ -75,6 +86,53 @@ public final class BypassChargingUtils {
      */
     public static boolean requestState(boolean enable) {
         return FileUtils.writeLine(NODE, enable ? "1" : "0");
+    }
+
+    /**
+     * Returns the currently selected mode name (e.g. "navigation"), or null
+     * if the node is missing (older kernel) or unparsable.
+     */
+    public static String readMode() {
+        String raw = FileUtils.readOneLine(MODE_NODE);
+        if (raw == null) {
+            return null;
+        }
+        int start = raw.indexOf('[');
+        int end = raw.indexOf(']', start + 1);
+        if (start < 0 || end < 0) {
+            return null;
+        }
+        return raw.substring(start + 1, end).trim();
+    }
+
+    /**
+     * Selects the mode used by the next enable. Has no effect on a bypass
+     * that is already engaged (the kernel latches the scene at engage time).
+     */
+    public static boolean writeMode(String mode) {
+        return FileUtils.writeLine(MODE_NODE, mode);
+    }
+
+    /** Remembers the user's mode choice so it can be re-applied after a reboot. */
+    public static void saveMode(Context context, String mode) {
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .edit().putString(KEY_MODE, mode).apply();
+    }
+
+    /**
+     * Re-applies the saved mode to the kernel. The kernel resets to its
+     * default (navigation) on every boot, so this runs from BOOT_COMPLETED.
+     * No-op if nothing was ever saved or the node doesn't exist.
+     */
+    public static void restoreMode(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        String mode = prefs.getString(KEY_MODE, null);
+        if (mode == null) {
+            return;
+        }
+        if (!writeMode(mode)) {
+            Log.w(TAG, "Failed to restore bypass mode: " + mode);
+        }
     }
 
     public static boolean isPending(State state) {

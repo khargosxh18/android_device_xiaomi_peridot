@@ -111,6 +111,17 @@
         <item>@string/charge_mode_cool</item>
         <item>@string/charge_mode_nuke</item>
     </string-array>
+    <string-array name="bypass_mode_entries">
+        <item>@string/bypass_mode_navigation</item>
+        <item>@string/bypass_mode_tgame</item>
+        <item>@string/bypass_mode_nolimit</item>
+    </string-array>
+    <!-- Must match the names in bypass_modes[] in the kernel driver -->
+    <string-array name="bypass_mode_values">
+        <item>navigation</item>
+        <item>tgame</item>
+        <item>nolimit</item>
+    </string-array>
     <string-array name="charge_mode_values">
         <item>0</item>
         <item>1</item>

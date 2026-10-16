@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Display.HdrCapabilities;
 
+import org.lineageos.settings.charge.BypassChargingUtils;
 import org.lineageos.settings.display.ColorModeService;
 import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.touchsampling.TouchSamplingUtils;
@@ -75,6 +76,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // High Touch polling rate
         TouchSamplingUtils.restoreSamplingValue(context);
+
+        // Bypass charging thermal mode (kernel resets to its default each boot)
+        BypassChargingUtils.restoreMode(context);
 
     }
 

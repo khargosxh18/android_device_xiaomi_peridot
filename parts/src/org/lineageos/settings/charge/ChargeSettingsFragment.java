@@ -44,11 +44,13 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
 
     private static final String CHARGE_MODE_PREF = "charge_mode_pref";
     private static final String BYPASS_CHARGING_PREF = "bypass_charging_pref";
+    private static final String BYPASS_MODE_PREF = "bypass_mode_pref";
     private static final long BYPASS_POLL_INTERVAL_MS = 250L;
     private static final long BYPASS_POLL_TIMEOUT_MS = 8000L; // headroom over the ~5s kernel sequence
 
     private ListPreference mChargeModePref;
     private SwitchPreferenceCompat mBypassChargingPref;
+    private ListPreference mBypassModePref;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private long mBypassPollDeadline;
 
@@ -64,6 +66,9 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
 
         mBypassChargingPref = (SwitchPreferenceCompat) findPreference(BYPASS_CHARGING_PREF);
         mBypassChargingPref.setOnPreferenceChangeListener(this);
+
+        mBypassModePref = (ListPreference) findPreference(BYPASS_MODE_PREF);
+        mBypassModePref.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -84,6 +89,16 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
             int index = Integer.parseInt((String) newValue);
             ChargeModeUtils.setMode(index);
             updateSummary(index);
+            return true;
+        }
+
+        if (BYPASS_MODE_PREF.equals(preference.getKey())) {
+            String mode = (String) newValue;
+            if (!BypassChargingUtils.writeMode(mode)) {
+                return false;
+            }
+            BypassChargingUtils.saveMode(requireContext(), mode);
+            updateBypassModeSummary(mode, false);
             return true;
         }
 
@@ -127,6 +142,7 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
 
     private void applyBypassChargingState(BypassChargingUtils.State state) {
         mBypassChargingPref.setChecked(BypassChargingUtils.isOn(state));
+        refreshBypassMode(state);
         switch (state) {
             case ON:
                 mBypassChargingPref.setSummary(R.string.bypass_charging_summary_on);
@@ -144,6 +160,35 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
                 mBypassChargingPref.setEnabled(false);
                 break;
         }
+    }
+
+    /**
+     * Mirrors the kernel's selected mode into the list. The picker is locked
+     * while bypass is on or switching: the kernel keeps the scene it engaged
+     * with, so changing the selection mid-session would show a mode that
+     * isn't the one actually running.
+     */
+    private void refreshBypassMode(BypassChargingUtils.State state) {
+        String mode = BypassChargingUtils.readMode();
+        if (mode == null || state == BypassChargingUtils.State.UNAVAILABLE) {
+            mBypassModePref.setEnabled(false);
+            return;
+        }
+        mBypassModePref.setValue(mode);
+        boolean locked = BypassChargingUtils.isOn(state) || BypassChargingUtils.isPending(state);
+        mBypassModePref.setEnabled(!locked);
+        updateBypassModeSummary(mode, locked);
+    }
+
+    private void updateBypassModeSummary(String mode, boolean locked) {
+        int index = mBypassModePref.findIndexOfValue(mode);
+        if (index < 0) {
+            return;
+        }
+        CharSequence label = mBypassModePref.getEntries()[index];
+        mBypassModePref.setSummary(locked
+                ? getString(R.string.bypass_mode_locked, label)
+                : label);
     }
 
     private void updateSummary(int index) {
