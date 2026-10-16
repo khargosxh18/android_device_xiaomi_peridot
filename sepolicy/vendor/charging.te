@@ -1,0 +1,18 @@
+type charging, domain;
+type charging_exec, exec_type, file_type, vendor_file_type;
+
+init_daemon_domain(charging)
+
+allow charging vendor_sysfs_battery_supply:dir r_dir_perms;
+allow charging vendor_sysfs_battery_supply:file rw_file_perms;
+allow charging vendor_sysfs_battery_supply:lnk_file r_file_perms;
+
+allow charging sysfs:dir r_dir_perms;
+allow charging sysfs:lnk_file r_file_perms;
+
+allow charging self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+allow charging self:capability2 wake_alarm;
+
+get_prop(vendor_init, system_prop)
+set_prop(vendor_init, vendor_charge_mode_prop)

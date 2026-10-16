@@ -1,0 +1,15 @@
+service vendor.charging /vendor/bin/charging
+    class main
+    user system
+    group system
+    capabilities WAKE_ALARM
+    seclabel u:r:charging:s0
+
+on property:persist.sys.charge.mode=*
+    setprop persist.vendor.charge.mode ${persist.sys.charge.mode}
+
+on property:vendor.charging.thermald=stop
+    stop mi_thermald
+
+on property:vendor.charging.thermald=start
+    start mi_thermald

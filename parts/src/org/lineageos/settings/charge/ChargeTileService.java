@@ -1,52 +1,47 @@
+/*
+ * Copyright (C) 2026 The LineageOS Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.lineageos.settings.charge;
 
-import android.content.Intent;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-import androidx.preference.PreferenceManager;
 
 public class ChargeTileService extends TileService {
-    private static final String PREF_KEY = "saved_charge_mode";
-    private static final String[][] MODES = {
-        {"OK", "3500000"},
-        {"COOL", "6000000"},
-        {"NUKE", "10000000"}
-    };
-   
+    private static final String[] LABELS = {"OK", "COOL", "NUKE"};
+
     @Override
     public void onClick() {
-        int nextIndex = (getCurrentIndex() + 1) % MODES.length;
-        saveIndex(nextIndex);
+        ChargeModeUtils.setMode((ChargeModeUtils.getMode() + 1) % ChargeModeUtils.MODE_COUNT);
         updateTile();
-
-        Intent intent = new Intent(this, ChargeEnforcementService.class);
-        if (nextIndex > 0) {
-            startService(intent);
-        } else {
-            stopService(intent);
-        }
     }
 
-    private int getCurrentIndex() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getInt(PREF_KEY, 0);
-    }
-    
-    private void saveIndex(int index) {
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(PREF_KEY, index).apply();
+    @Override
+    public void onStartListening() {
+        super.onStartListening();
+        updateTile();
     }
 
     private void updateTile() {
         Tile tile = getQsTile();
         if (tile != null) {
-            tile.setLabel(MODES[getCurrentIndex()][0]);
-            tile.setState(Tile.STATE_ACTIVE);
+            int mode = ChargeModeUtils.getMode();
+            tile.setLabel(LABELS[mode]);
+            tile.setState(mode == ChargeModeUtils.MODE_OK ? Tile.STATE_INACTIVE
+                                                          : Tile.STATE_ACTIVE);
             tile.updateTile();
         }
-    }
-    
-    @Override
-    public void onStartListening() {
-        super.onStartListening();
-        updateTile();
     }
 }

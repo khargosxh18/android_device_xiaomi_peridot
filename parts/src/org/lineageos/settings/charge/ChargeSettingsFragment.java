@@ -16,8 +16,6 @@
 
 package org.lineageos.settings.charge;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,15 +24,14 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 import com.android.settingslib.widget.SettingsBasePreferenceFragment;
-import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.R;
 
 /**
  * Lets the user pick a charge mode directly, instead of only being able to
- * cycle through OK -> COOL -> NUKE via the QS tile. Reads/writes the same
- * SharedPreferences key the tile uses, and drives the same enforcement
- * service, so both stay in sync no matter which one was used last.
+ * cycle through OK -> COOL -> NUKE via the QS tile. Both go through
+ * ChargeModeUtils (a system property the native charging daemon reads), so
+ * they stay in sync no matter which one was used last.
  *
  * Also hosts the bypass-charging switch. That node is asynchronous on the
  * kernel side (~5s, see BypassChargingUtils/the sysfs ABI doc), so the
@@ -45,8 +42,6 @@ import org.lineageos.settings.R;
 public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
-    // Must match ChargeTileService.PREF_KEY
-    private static final String PREF_KEY = "saved_charge_mode";
     private static final String CHARGE_MODE_PREF = "charge_mode_pref";
     private static final String BYPASS_CHARGING_PREF = "bypass_charging_pref";
     private static final long BYPASS_POLL_INTERVAL_MS = 250L;
@@ -62,7 +57,7 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
         addPreferencesFromResource(R.xml.charge_settings);
 
         mChargeModePref = (ListPreference) findPreference(CHARGE_MODE_PREF);
-        int savedIndex = getPrefs().getInt(PREF_KEY, 0);
+        int savedIndex = ChargeModeUtils.getMode();
         mChargeModePref.setValue(String.valueOf(savedIndex));
         updateSummary(savedIndex);
         mChargeModePref.setOnPreferenceChangeListener(this);
@@ -87,17 +82,8 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (CHARGE_MODE_PREF.equals(preference.getKey())) {
             int index = Integer.parseInt((String) newValue);
-            getPrefs().edit().putInt(PREF_KEY, index).apply();
+            ChargeModeUtils.setMode(index);
             updateSummary(index);
-
-            // Mirror ChargeTileService.onClick(): start/stop the enforcement
-            // service based on the newly selected mode.
-            Intent intent = new Intent(getActivity(), ChargeEnforcementService.class);
-            if (index > 0) {
-                getActivity().startService(intent);
-            } else {
-                getActivity().stopService(intent);
-            }
             return true;
         }
 
@@ -165,9 +151,5 @@ public class ChargeSettingsFragment extends SettingsBasePreferenceFragment
         if (index >= 0 && index < entries.length) {
             mChargeModePref.setSummary(entries[index]);
         }
-    }
-
-    private SharedPreferences getPrefs() {
-        return PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 }
