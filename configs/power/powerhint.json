@@ -60,6 +60,20 @@
             "ResetOnInit": true
         },
         {
+            "Name": "CoreCtlMinCoresBig",
+            "Paths": ["/sys/devices/system/cpu/cpu3/core_ctl/min_cpus"],
+            "Values": ["4", "0"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "PMQoSCpuDmaLatency",
+            "Paths": ["/dev/cpu_dma_latency"],
+            "Values": ["0", "44", "67", "2000"],
+            "DefaultIndex": 3,
+            "HoldFd": true
+        },
+        {
             "Name": "UclampTALatency",
             "Paths": ["/dev/cpuctl/top-app/cpu.uclamp.latency_sensitive"],
             "Values": ["1", "0"],
@@ -343,6 +357,27 @@
             "DefaultIndex": 0,
             "ResetOnInit": true,
             "Optional": true
+        },
+        {
+            "Name": "UfsScheduler",
+            "Paths": ["/sys/block/sda/queue/scheduler"],
+            "Values": ["mq-deadline", "none"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "UfsReadAhead",
+            "Paths": ["/sys/block/sda/queue/read_ahead_kb"],
+            "Values": ["128", "2048"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedRtBoost",
+            "Paths": ["/proc/sys/kernel/sched_util_clamp_min_rt_default"],
+            "Values": ["0", "128", "256"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
         }
     ],
     "Actions": [
@@ -732,6 +767,222 @@
             "Node": "DdrBwMinFreq",
             "Duration": 0,
             "Value": "1555000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUMaxFreq",
+            "Duration": 0,
+            "Value": "1100000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUMinFreq",
+            "Duration": 0,
+            "Value": "353000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UclampTAMin",
+            "Duration": 0,
+            "Value": "60"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "CoreCtlMinCoresBig",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "GPUIdleTimer",
+            "Duration": 0,
+            "Value": "80"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu3WaltHispeedLoad",
+            "Duration": 0,
+            "Value": "70"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu7WaltHispeedLoad",
+            "Duration": 0,
+            "Value": "75"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "Cpu7WaltDownRateLimitUs",
+            "Duration": 0,
+            "Value": "8000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltBusyHystCpuNs",
+            "Duration": 0,
+            "Value": "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedUpmigrate",
+            "Duration": 0,
+            "Value": "65 85"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedDownmigrate",
+            "Duration": 0,
+            "Value": "45 60"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwMinFreq",
+            "Duration": 0,
+            "Value": "1555000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwMinFreq",
+            "Duration": 0,
+            "Value": "600000"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "L3MinFreq",
+            "Duration": 0,
+            "Value": "1209600"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "PMQoSCpuDmaLatency",
+            "Duration": 0,
+            "Value": "67"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UclampTALatency",
+            "Duration": 0,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHistMemory",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHistMemory",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHystTriggerCount",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHystTriggerCount",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwIoPercent",
+            "Duration": 0,
+            "Value": "16"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwIoPercent",
+            "Duration": 0,
+            "Value": "16"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedIdleEnough",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwHystLength",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwHystLength",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForBoost",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForColoc",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedMinTaskUtilForUclamp",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "DdrBwSampleMs",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "LlccBwSampleMs",
+            "Duration": 0,
+            "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedRtBoost",
+            "Duration": 0,
+            "Value": "128"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UfsScheduler",
+            "Duration": 0,
+            "Value": "none"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "UfsReadAhead",
+            "Duration": 0,
+            "Value": "128"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedGroupDown",
+            "Duration": 0,
+            "Value": "35"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedGroupUp",
+            "Duration": 0,
+            "Value": "70"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "SchedColocBusyHystEnableCpus",
+            "Duration": 0,
+            "Value": "120"
         }
     ]
 }
