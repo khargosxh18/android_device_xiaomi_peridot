@@ -34,10 +34,6 @@ import android.view.Display.HdrCapabilities;
 
 import org.lineageos.settings.charge.BypassChargingUtils;
 import org.lineageos.settings.display.ColorModeService;
-import org.lineageos.settings.refreshrate.RefreshUtils;
-import org.lineageos.settings.touchsampling.TouchSamplingUtils;
-import org.lineageos.settings.touchsampling.TouchSamplingService;
-import org.lineageos.settings.touchsampling.TouchSamplingTileService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
@@ -74,9 +70,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (DEBUG) Log.i(TAG, "Handling boot completed.");
         // Add additional boot-completed actions if needed
 
-        // High Touch polling rate
-        TouchSamplingUtils.restoreSamplingValue(context);
-
         // Bypass charging thermal mode (kernel resets to its default each boot)
         BypassChargingUtils.restoreMode(context);
 
@@ -87,17 +80,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         
         // Start Color Mode Service
         context.startServiceAsUser(new Intent(context, ColorModeService.class), UserHandle.CURRENT);
-
-        // Start Refresh Rate Service
-        RefreshUtils.startService(context);
-
-        // Start Touch Sampling Service
-        context.startServiceAsUser(new Intent(context, TouchSamplingService.class),
-                UserHandle.CURRENT);
-
-        // Touch Sampling Tile Service
-        context.startServiceAsUser(new Intent(context, TouchSamplingTileService.class), 
-                UserHandle.CURRENT);
     }
 
     private void overrideHdrTypes(Context context) {

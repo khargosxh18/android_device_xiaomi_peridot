@@ -43,12 +43,6 @@
      <!-- Tile Disabled -->
      <string name="power_tile_disabled_subtitle">Disabled</string>
 
-    <!-- Refresh rate -->
-    <string name="refresh_title">Refresh rate</string>
-    <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>
-    <string name="refresh_default">Default</string>
-    <string name="refresh_standard">60Hz</string>
-    <string name="refresh_extreme">120Hz</string>
 	
 	<!-- GameBar Overlay -->
     <string name="game_bar_title">GameBar</string>
@@ -90,19 +84,6 @@
     <string name="image_preview_next_page_content_description">Next</string>
     <string name="image_preview_previous_page_content_description">Previous</string>
     
-    <!-- High Touch Polling -->
-    <string name="htsr_title">Touch Responsiveness</string>
-    <string name="htsr_enable_title">Increase Touch Responsiveness</string>
-    <string name="htsr_enable_summary">Increases touch polling rate to decrease latency</string>
-    <string name="touch_sampling_tile_label">Touch Boost</string>
-
-    <!-- Per-App High Touch Polling -->
-    <string name="per_app_htsr_title">Per-App Touch Boost</string>
-    <string name="per_app_htsr_summary">Enable touch boost for specific applications</string>
-    <string name="show_system_apps">Show system apps</string>
-    <string name="hide_system_apps">Hide system apps</string>
-    <string name="loading_apps">Loading applications...</string>
-    <string name="no_apps_found">No applications found</string>    
 
     <!-- Charge Control -->
     <string name="charge_tile_title">Charge Control</string>

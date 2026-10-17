@@ -17,16 +17,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:key="entry_refresh"
-        android:title="@string/refresh_title"
-        android:summary="@string/refresh_summary"
-        android:icon="@drawable/ic_qs_refresh_rate">
-        <intent
-            android:targetPackage="org.lineageos.settings"
-            android:targetClass="org.lineageos.settings.refreshrate.RefreshActivity" />
-    </Preference>
-
-    <Preference
         android:key="entry_saturation"
         android:title="@string/saturation_title"
         android:summary="@string/saturation_summary"
@@ -44,16 +34,6 @@
         <intent
             android:targetPackage="org.lineageos.settings"
             android:targetClass="org.lineageos.settings.speaker.ClearSpeakerActivity" />
-    </Preference>
-
-    <Preference
-        android:key="entry_touch_sampling"
-        android:title="@string/htsr_enable_title"
-        android:summary="@string/htsr_enable_summary"
-        android:icon="@drawable/ic_touch_sampling_tile">
-        <intent
-            android:targetPackage="org.lineageos.settings"
-            android:targetClass="org.lineageos.settings.touchsampling.TouchSamplingSettingsActivity" />
     </Preference>
 
     <Preference

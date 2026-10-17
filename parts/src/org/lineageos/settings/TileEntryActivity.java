@@ -28,15 +28,11 @@ import androidx.annotation.Nullable;
 
 import org.lineageos.settings.charge.ChargeActivity;
 import org.lineageos.settings.power.PowerProfileActivity;
-import org.lineageos.settings.refreshrate.RefreshActivity;
 import org.lineageos.settings.saturation.SaturationActivity;
-import org.lineageos.settings.touchsampling.TouchSamplingSettingsActivity;
 
 public class TileEntryActivity extends Activity {
     private static final String TAG = "TileEntryActivity";
-    private static final String REFRESH_TILE = "org.lineageos.settings.refreshrate.RefreshTileService";
     private static final String SATURATION_TILE = "org.lineageos.settings.saturation.SaturationTileService";
-    private static final String TOUCH_SAMPLING_TILE = "org.lineageos.settings.touchsampling.TouchSamplingTileService";
     private static final String CHARGE_TILE = "org.lineageos.settings.charge.ChargeTileService";
     private static final String POWER_PROFILE_TILE = "org.lineageos.settings.power.PowerProfileTileService";
 
@@ -53,12 +49,8 @@ public class TileEntryActivity extends Activity {
         String sourceClassName = sourceComponent.getClassName();
         Intent intent = null;
 
-        if (REFRESH_TILE.equals(sourceClassName)) {
-            intent = new Intent(this, RefreshActivity.class);
-        } else if (SATURATION_TILE.equals(sourceClassName)) {
+        if (SATURATION_TILE.equals(sourceClassName)) {
             intent = new Intent(this, SaturationActivity.class);
-        } else if (TOUCH_SAMPLING_TILE.equals(sourceClassName)) {
-            intent = new Intent(this, TouchSamplingSettingsActivity.class);
         } else if (CHARGE_TILE.equals(sourceClassName)) {
             intent = new Intent(this, ChargeActivity.class);
         } else if (POWER_PROFILE_TILE.equals(sourceClassName)) {
