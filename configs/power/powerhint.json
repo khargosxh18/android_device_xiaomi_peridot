@@ -162,6 +162,145 @@
             "Paths": ["vendor.powerhal.rendering"],
             "Values": ["EXPENSIVE_RENDERING", ""],
             "Type": "Property"
+        },
+        {
+            "Name": "SchedMinTaskUtilForBoost",
+            "Paths": ["/proc/sys/walt/sched_min_task_util_for_boost"],
+            "Values": ["0", "51", "15"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedMinTaskUtilForColoc",
+            "Paths": ["/proc/sys/walt/sched_min_task_util_for_colocation"],
+            "Values": ["0", "35", "15"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedMinTaskUtilForUclamp",
+            "Paths": ["/proc/sys/walt/sched_min_task_util_for_uclamp"],
+            "Values": ["0", "51", "20"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "WaltSchedBoost",
+            "Paths": ["/proc/sys/walt/sched_boost"],
+            "Values": ["0", "1", "2"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "WaltSchedIdleEnough",
+            "Paths": ["/proc/sys/walt/sched_idle_enough"],
+            "Values": ["30", "0", "15"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "WaltSchedUpmigrate",
+            "Paths": ["/proc/sys/walt/sched_upmigrate"],
+            "Values": ["70 95", "60 75", "90 100", "65 85"],
+            "DefaultIndex": 2,
+            "ResetOnInit": true,
+            "Optional": true,
+            "WriteOnly": true
+        },
+        {
+            "Name": "WaltSchedDownmigrate",
+            "Paths": ["/proc/sys/walt/sched_downmigrate"],
+            "Values": ["55 75", "45 60", "75 85", "55 80"],
+            "DefaultIndex": 2,
+            "ResetOnInit": true,
+            "Optional": true,
+            "WriteOnly": true
+        },
+        {
+            "Name": "WaltBusyHystCpuNs",
+            "Paths": ["/proc/sys/walt/sched_util_busy_hyst_cpu_ns"],
+            "Values": ["2000000 2000000 2000000 1000000 1000000 1000000 1000000 0", "0 0 0 0 0 0 0 0", "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedGroupUp",
+            "Paths": ["/proc/sys/walt/sched_group_upmigrate"],
+            "Values": ["100", "70"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedGroupDown",
+            "Paths": ["/proc/sys/walt/sched_group_downmigrate"],
+            "Values": ["85", "35"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SchedColocBusyHystEnableCpus",
+            "Paths": ["/proc/sys/walt/sched_coloc_busy_hysteresis_enable_cpus"],
+            "Values": ["0", "120"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "Cpu0WaltHispeedFreq",
+            "Paths": ["/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq"],
+            "Values": ["1344000", "787200"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu3WaltHispeedFreq",
+            "Paths": ["/sys/devices/system/cpu/cpu3/cpufreq/walt/hispeed_freq"],
+            "Values": ["1286400", "787200"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu0WaltHispeedLoad",
+            "Paths": ["/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_load"],
+            "Values": ["90", "99"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu3WaltHispeedLoad",
+            "Paths": ["/sys/devices/system/cpu/cpu3/cpufreq/walt/hispeed_load"],
+            "Values": ["85", "70", "60"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu7WaltHispeedLoad",
+            "Paths": ["/sys/devices/system/cpu/cpu7/cpufreq/walt/hispeed_load"],
+            "Values": ["85", "70", "75"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu0WaltRtgBoostFreq",
+            "Paths": ["/sys/devices/system/cpu/cpu0/cpufreq/walt/rtg_boost_freq"],
+            "Values": ["595200", "0"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "Optional": true
+        },
+        {
+            "Name": "Cpu7WaltDownRateLimitUs",
+            "Paths": ["/sys/devices/system/cpu/cpu7/cpufreq/walt/down_rate_limit_us"],
+            "Values": ["0", "8000"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true,
+            "Optional": true
         }
     ],
     "Actions": [
@@ -241,6 +380,30 @@
             "Node": "DdrBwMinFreq",
             "Duration": 100,
             "Value": "768000"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "SchedMinTaskUtilForColoc",
+            "Duration": 0,
+            "Value": "35"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "SchedMinTaskUtilForBoost",
+            "Duration": 0,
+            "Value": "51"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "SchedMinTaskUtilForUclamp",
+            "Duration": 0,
+            "Value": "51"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "WaltSchedIdleEnough",
+            "Duration": 100,
+            "Value": "30"
         },
         {
             "PowerHint": "EXPENSIVE_RENDERING",
