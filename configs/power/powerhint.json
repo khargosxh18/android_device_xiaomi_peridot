@@ -74,10 +74,24 @@
             "HoldFd": true
         },
         {
+            "Name": "UclampTAMin",
+            "Paths": ["/dev/cpuctl/top-app/cpu.uclamp.min"],
+            "Values": ["80", "60", "50", "48", "40", "30", "25", "0"],
+            "DefaultIndex": 7,
+            "ResetOnInit": true
+        },
+        {
             "Name": "UclampTALatency",
             "Paths": ["/dev/cpuctl/top-app/cpu.uclamp.latency_sensitive"],
             "Values": ["1", "0"],
             "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "UclampFGMin",
+            "Paths": ["/dev/cpuctl/foreground/cpu.uclamp.min"],
+            "Values": ["43", "37", "35", "20", "10", "0"],
+            "DefaultIndex": 5,
             "ResetOnInit": true
         },
         {
@@ -388,6 +402,12 @@
         },
         {
             "PowerHint": "LAUNCH",
+            "Node": "UclampTAMin",
+            "Duration": 1500,
+            "Value": "50"
+        },
+        {
+            "PowerHint": "LAUNCH",
             "Node": "CPULittleClusterMinFreq",
             "Duration": 1500,
             "Value": "1344000"
@@ -421,6 +441,12 @@
             "Node": "CPUBigPlusClusterMaxFreq",
             "Duration": 1500,
             "Value": "2457600"
+        },
+        {
+            "PowerHint": "LAUNCH",
+            "Node": "GPUIdleTimer",
+            "Value": "100",
+            "Duration": 1000
         },
         {
             "PowerHint": "LAUNCH",
