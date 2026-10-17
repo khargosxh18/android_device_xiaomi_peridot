@@ -132,8 +132,8 @@
     <string-array name="power_profile_entries">
         <item>@string/powerprofile_default</item>
         <item>@string/powerprofile_battery</item>
-        <item>@string/powerprofile_performance</item>
-        <item>@string/powerprofile_gaming</item>
+        <item>@string/powerprofile_ultimate</item>
+        <item>@string/powerprofile_boost</item>
     </string-array>
     <string-array name="power_profile_values">
         <item>0</item>

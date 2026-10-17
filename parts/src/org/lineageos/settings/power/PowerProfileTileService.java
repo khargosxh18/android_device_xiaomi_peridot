@@ -41,13 +41,13 @@ public class PowerProfileTileService extends TileService {
     private static final String POWER_PROFILE_PREF_KEY = "saved_power_profile";
     private static final String PREV_POWER_PROFILE_PREF_KEY = "prev_power_profile";
     private static final String SYS_PERF_PROP = "sys.perf_mode_active";
-    private static final int NOTIFICATION_ID_PERFORMANCE = 1001;
+    private static final int NOTIFICATION_ID_POWER_MODE = 1001;
 
     private enum PowerProfile {
         DEFAULT(0, R.string.powerprofile_default, R.drawable.ic_power_default, "1"),
         BATTERY(1, R.string.powerprofile_battery, R.drawable.ic_power_battery_saver, "0"),
-        PERFORMANCE(6, R.string.powerprofile_performance, R.drawable.ic_power_performance, "2"),
-        GAMING(18, R.string.powerprofile_gaming, R.drawable.ic_power_gaming, "3"),
+        ULTIMATE(6, R.string.powerprofile_ultimate, R.drawable.ic_power_ultimate, "2"),
+        BOOST(18, R.string.powerprofile_boost, R.drawable.ic_power_boost, "3"),
         UNKNOWN(-1, R.string.powerprofile_unknown, R.drawable.ic_power_default, "1");
 
         private final int value;
@@ -77,9 +77,9 @@ public class PowerProfileTileService extends TileService {
         public PowerProfile getNext() {
             switch (this) {
                 case DEFAULT: return BATTERY;
-                case BATTERY: return PERFORMANCE;
-                case PERFORMANCE: return GAMING;
-                case GAMING:
+                case BATTERY: return ULTIMATE;
+                case ULTIMATE: return BOOST;
+                case BOOST:
                 case UNKNOWN:
                 default: return DEFAULT;
             }
@@ -242,16 +242,16 @@ public class PowerProfileTileService extends TileService {
         switch (profile) {
             case BATTERY:
                 setBatterySaverExternally(context, saverCurrentlyOn, !isCharging);
-                cancelPerformanceNotificationExternally(context);
+                cancelPowerModeNotificationExternally(context);
                 break;
-            case PERFORMANCE:
-            case GAMING:
+            case ULTIMATE:
+            case BOOST:
                 setBatterySaverExternally(context, saverCurrentlyOn, false);
-                showPerformanceNotificationExternally(context, profile);
+                showPowerModeNotificationExternally(context, profile);
                 break;
             default:
                 setBatterySaverExternally(context, saverCurrentlyOn, false);
-                cancelPerformanceNotificationExternally(context);
+                cancelPowerModeNotificationExternally(context);
                 break;
         }
 
@@ -279,7 +279,7 @@ public class PowerProfileTileService extends TileService {
                 Settings.Global.LOW_POWER_MODE, wantOn ? 1 : 0);
     }
 
-    private static void showPerformanceNotificationExternally(Context context, PowerProfile profile) {
+    private static void showPowerModeNotificationExternally(Context context, PowerProfile profile) {
         NotificationManager nm = context.getSystemService(NotificationManager.class);
         if (nm == null) return;
         ensureNotificationChannelExternally(context, nm);
@@ -288,9 +288,9 @@ public class PowerProfileTileService extends TileService {
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        int contentTextResId = profile == PowerProfile.GAMING
-                ? R.string.gaming_mode_notification
-                : R.string.perf_mode_notification;
+        int contentTextResId = profile == PowerProfile.BOOST
+                ? R.string.boost_mode_notification
+                : R.string.ultimate_mode_notification;
 
         Notification notification = new Notification.Builder(context, TAG)
                 .setContentTitle(context.getString(profile.getNameResId()))
@@ -300,17 +300,17 @@ public class PowerProfileTileService extends TileService {
                 .setOngoing(true)
                 .build();
 
-        nm.notify(NOTIFICATION_ID_PERFORMANCE, notification);
+        nm.notify(NOTIFICATION_ID_POWER_MODE, notification);
     }
 
-    private static void cancelPerformanceNotificationExternally(Context context) {
+    private static void cancelPowerModeNotificationExternally(Context context) {
         NotificationManager nm = context.getSystemService(NotificationManager.class);
-        if (nm != null) nm.cancel(NOTIFICATION_ID_PERFORMANCE);
+        if (nm != null) nm.cancel(NOTIFICATION_ID_POWER_MODE);
     }
 
     private static void ensureNotificationChannelExternally(Context context, NotificationManager nm) {
         NotificationChannel channel = new NotificationChannel(
-                TAG, context.getString(R.string.perf_mode_title), NotificationManager.IMPORTANCE_DEFAULT);
+                TAG, context.getString(R.string.ultimate_mode_title), NotificationManager.IMPORTANCE_DEFAULT);
         channel.setBlockable(true);
         nm.createNotificationChannel(channel);
     }
@@ -339,8 +339,8 @@ public class PowerProfileTileService extends TileService {
 
         boolean isCharging = isCharging();
 
-        // Don't Handle HTSR for PERFORMANCE or GAMING profile
-        // boolean htsrEnabled = profile == PowerProfile.PERFORMANCE || profile == PowerProfile.GAMING;
+        // Don't Handle HTSR for ULTIMATE or BOOST profile
+        // boolean htsrEnabled = profile == PowerProfile.ULTIMATE || profile == PowerProfile.BOOST;
         // updateTouchSamplingState(htsrEnabled);
 
         switch (profile) {
@@ -350,20 +350,20 @@ public class PowerProfileTileService extends TileService {
                 } else {
                     setBatterySaver(false); // Disable battery saver if charging
                 }
-                cancelPerformanceNotification();
+                cancelPowerModeNotification();
                 break;
-            case PERFORMANCE:
-            case GAMING:
-                setBatterySaver(false); // Always disable battery saver for PERFORMANCE
-                showPerformanceNotification(profile);
+            case ULTIMATE:
+            case BOOST:
+                setBatterySaver(false); // Always disable battery saver for ULTIMATE
+                showPowerModeNotification(profile);
                 break;
             case DEFAULT:
                 setBatterySaver(false);
-                cancelPerformanceNotification();
+                cancelPowerModeNotification();
                 break;
             default:
                 setBatterySaver(false);
-                cancelPerformanceNotification();
+                cancelPowerModeNotification();
                 break;
         }
     }
@@ -405,14 +405,14 @@ public class PowerProfileTileService extends TileService {
     private void setupNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(
             TAG, 
-            getString(R.string.perf_mode_title),
+            getString(R.string.ultimate_mode_title),
             NotificationManager.IMPORTANCE_DEFAULT
         );
         channel.setBlockable(true);
         mNotificationManager.createNotificationChannel(channel);
     }
 
-    private void showPerformanceNotification(PowerProfile profile) {
+    private void showPowerModeNotification(PowerProfile profile) {
         if (mNotificationManager == null) return;
 
         Intent intent = new Intent(Settings.ACTION_SETTINGS);
@@ -420,9 +420,9 @@ public class PowerProfileTileService extends TileService {
             this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        int contentTextResId = profile == PowerProfile.GAMING
-                ? R.string.gaming_mode_notification
-                : R.string.perf_mode_notification;
+        int contentTextResId = profile == PowerProfile.BOOST
+                ? R.string.boost_mode_notification
+                : R.string.ultimate_mode_notification;
 
         Notification notification = new Notification.Builder(this, TAG)
             .setContentTitle(getString(profile.getNameResId()))
@@ -432,12 +432,12 @@ public class PowerProfileTileService extends TileService {
             .setOngoing(true)
             .build();
 
-        mNotificationManager.notify(NOTIFICATION_ID_PERFORMANCE, notification);
+        mNotificationManager.notify(NOTIFICATION_ID_POWER_MODE, notification);
     }
 
-    private void cancelPerformanceNotification() {
+    private void cancelPowerModeNotification() {
         if (mNotificationManager != null) {
-            mNotificationManager.cancel(NOTIFICATION_ID_PERFORMANCE);
+            mNotificationManager.cancel(NOTIFICATION_ID_POWER_MODE);
         }
     }
 
@@ -450,7 +450,7 @@ public class PowerProfileTileService extends TileService {
                     getContentResolver(), Settings.Global.LOW_POWER_MODE, 0) == 1;
 
                 PowerProfile current = getCurrentProfile();
-                if (isBatterySaverOn && !isCharging() && current != PowerProfile.PERFORMANCE && current != PowerProfile.GAMING) {
+                if (isBatterySaverOn && !isCharging() && current != PowerProfile.ULTIMATE && current != PowerProfile.BOOST) {
                     if (current != PowerProfile.BATTERY) {
                         Log.d(TAG, "Battery saver enabled, switching to battery profile");
                         applyProfile(PowerProfile.BATTERY);
@@ -536,6 +536,6 @@ public class PowerProfileTileService extends TileService {
         Intent tileUpdateIntent = new Intent("org.lineageos.settings.touchsampling.ACTION_UPDATE_TILE");
         sendBroadcast(tileUpdateIntent);
 
-        Log.d(TAG, "Touch sampling " + (enable ? "enabled" : "disabled") + " for performance profile");
+        Log.d(TAG, "Touch sampling " + (enable ? "enabled" : "disabled") + " for ultimate/boost profiles");
     }
 }
