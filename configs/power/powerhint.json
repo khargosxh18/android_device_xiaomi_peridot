@@ -770,6 +770,21 @@
         },
         {
             "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "INTERACTION"
+        },
+        {
+            "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "LAUNCH"
+        },
+        {
+            "PowerHint": "GAME",
+            "Type": "MaskHint",
+            "Value": "EXPENSIVE_RENDERING"
+        },
+        {
+            "PowerHint": "GAME",
             "Node": "GPUMaxFreq",
             "Duration": 0,
             "Value": "1100000000"
