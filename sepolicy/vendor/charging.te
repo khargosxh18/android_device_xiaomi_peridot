@@ -14,5 +14,9 @@ allow charging self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
 allow charging self:capability2 wake_alarm;
 
+get_prop(charging, vendor_charge_mode_prop)
+set_prop(charging, vendor_charging_thermald_prop)
+unix_socket_connect(charging, property, init)
+
 get_prop(vendor_init, system_prop)
 set_prop(vendor_init, vendor_charge_mode_prop)
