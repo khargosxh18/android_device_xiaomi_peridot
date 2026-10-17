@@ -422,6 +422,18 @@
             "Node": "GPUMaxFreq",
             "Duration": 0,
             "Value": "500000000"
+        },
+        {
+            "PowerHint": "FP_BOOST",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 200,
+            "Value": "787200"
+        },
+        {
+            "PowerHint": "FP_BOOST",
+            "Node": "CPULittleClusterMinFreq",
+            "Duration": 200,
+            "Value": "1228800"
         }
     ]
 }
