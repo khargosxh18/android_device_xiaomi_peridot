@@ -48,7 +48,7 @@ constexpr long kResumeDeciC = 460;
 constexpr long kProfiles[kModes][kSlots] = {
     {mA(3000), mA(3000), mA(3000), mA(3000), mA(3000), mA(3000)},
     {mA(6000), mA(6000), mA(6000), mA(6000), mA(6000), mA(3000)},
-    {mA(12500), mA(10000), mA(10000), mA(10000), mA(10000), mA(3000)},
+    {mA(12500), mA(12500), mA(12500), mA(12500), mA(12500), mA(3000)},
 };
 
 volatile sig_atomic_t g_stop = 0;
@@ -116,6 +116,7 @@ class Governor {
         readLong(kTempNode, &temp);
 
         if (paused_) {
+            setThermald(true);
             if (temp > kResumeDeciC) return;
             paused_ = false;
             LOGI("%.1fC, resuming", temp / 10.0);
@@ -126,7 +127,7 @@ class Governor {
             return;
         }
 
-        setThermald(false);
+        if (!setThermald(false)) return;
 
         int mode = currentMode();
         if (mode != last_mode_) {
@@ -160,12 +161,16 @@ class Governor {
         return (m >= 0 && m < kModes) ? static_cast<int>(m) : 0;
     }
 
-    void setThermald(bool run) {
-        if (thermald_running_ == (run ? 1 : 0)) return;
+    bool setThermald(bool run) {
+        if (thermald_running_ == (run ? 1 : 0)) return true;
+        if (!android::base::SetProperty(kThermaldProp, run ? "start" : "stop")) {
+            LOGW("failed to set %s", kThermaldProp);
+            return false;
+        }
         thermald_running_ = run ? 1 : 0;
-        android::base::SetProperty(kThermaldProp, run ? "start" : "stop");
         LOGI("mi_thermald %s", run ? "start" : "stop");
         if (!run) usleep(300 * 1000);
+        return true;
     }
 
     Node current_{kCurrentNode};
@@ -177,8 +182,21 @@ class Governor {
 };
 
 bool bypassActive() {
+    static bool last = false;
+    static bool warned = false;
     std::string s;
-    return readStr(kBypassNode, &s) && s != "0";
+    errno = 0;
+    bool known = readStr(kBypassNode, &s);
+    if (!known && errno != 0 && errno != ENOENT && !warned) {
+        LOGW("bypass node unreadable: %s", strerror(errno));
+        warned = true;
+    }
+    bool on = known && s != "0";
+    if (on != last) {
+        LOGI("bypass %s (%s)", on ? "on" : "off", s.c_str());
+        last = on;
+    }
+    return on;
 }
 
 bool isCharging() {
