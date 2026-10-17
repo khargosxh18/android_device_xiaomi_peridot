@@ -156,6 +156,12 @@
             "Values": ["4", "16", "33"],
             "DefaultIndex": 2,
             "ResetOnInit": true
+        },
+        {
+            "Name": "PowerHALRenderingState",
+            "Paths": ["vendor.powerhal.rendering"],
+            "Values": ["EXPENSIVE_RENDERING", ""],
+            "Type": "Property"
         }
     ],
     "Actions": [
@@ -235,6 +241,24 @@
             "Node": "DdrBwMinFreq",
             "Duration": 100,
             "Value": "768000"
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "PowerHALRenderingState",
+            "Duration": 0,
+            "Value": "EXPENSIVE_RENDERING"
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "GPUMinFreq",
+            "Duration": 0,
+            "Value": "353000000"
+        },
+        {
+            "PowerHint": "EXPENSIVE_RENDERING",
+            "Node": "GPUMaxFreq",
+            "Duration": 0,
+            "Value": "500000000"
         }
     ]
 }
