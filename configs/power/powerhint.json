@@ -58,6 +58,104 @@
             "Values": ["1100000000", "1000000000", "950000000", "900000000", "835000000", "736000000", "684000000", "633000000", "500000000", "353000000", "255000000"],
             "DefaultIndex": 10,
             "ResetOnInit": true
+        },
+        {
+            "Name": "L3MinFreq",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/L3/boost_freq"],
+            "Values": ["1593600", "1497600", "1344000", "1209600", "1094400", "998400", "902400", "806400", "614400", "518400", "364800"],
+            "DefaultIndex": 10,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwHistMemory",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hist_memory"],
+            "Values": ["20", "0"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwHystLength",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length"],
+            "Values": ["4", "0", "10"],
+            "DefaultIndex": 2,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwHystTriggerCount",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_trigger_count"],
+            "Values": ["0", "3"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwIoPercent",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent"],
+            "Values": ["80", "100", "16"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwMinFreq",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/min_freq"],
+            "Values": ["4224000", "3686000", "3187000", "2736000", "2092000", "1708000", "1555000", "768000", "547000"],
+            "DefaultIndex": 8,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "DdrBwSampleMs",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/sample_ms"],
+            "Values": ["4", "2", "33"],
+            "DefaultIndex": 2,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwHistMemory",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hist_memory"],
+            "Values": ["20", "0"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwHystLength",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_length"],
+            "Values": ["4", "10", "0"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwHystTriggerCount",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/hyst_trigger_count"],
+            "Values": ["3", "0"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwIoPercent",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent"],
+            "Values": ["80", "100", "16"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwMaxFreq",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/max_freq"],
+            "Values": ["1066000", "933000", "806000", "600000", "466500", "300000"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwMinFreq",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/min_freq"],
+            "Values": ["1066000", "933000", "806000", "600000", "466500", "300000", "0"],
+            "DefaultIndex": 6,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "LlccBwSampleMs",
+            "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/sample_ms"],
+            "Values": ["4", "16", "33"],
+            "DefaultIndex": 2,
+            "ResetOnInit": true
         }
     ],
     "Actions": [
@@ -125,6 +223,18 @@
             "Node": "CPUBigPlusClusterMaxFreq",
             "Duration": 1000,
             "Value": "2150400"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "L3MinFreq",
+            "Duration": 100,
+            "Value": "518400"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "DdrBwMinFreq",
+            "Duration": 100,
+            "Value": "768000"
         }
     ]
 }
