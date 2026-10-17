@@ -30,6 +30,7 @@ constexpr const char* kLimitNode = "/sys/class/power_supply/battery/charge_contr
 constexpr const char* kReadCurrentNode = "/sys/class/power_supply/battery/current_now";
 constexpr const char* kTempNode = "/sys/class/power_supply/battery/temp";
 constexpr const char* kStatusNode = "/sys/class/power_supply/battery/status";
+constexpr const char* kBypassNode = "/sys/class/qcom-battery/bypass_charging_enable";
 
 constexpr const char* kModeProp = "persist.vendor.charge.mode";
 constexpr const char* kThermaldProp = "vendor.charging.thermald";
@@ -175,9 +176,14 @@ class Governor {
     bool paused_ = false;
 };
 
+bool bypassActive() {
+    std::string s;
+    return readStr(kBypassNode, &s) && s != "0";
+}
+
 bool isCharging() {
     std::string s;
-    return readStr(kStatusNode, &s) && s == "Charging";
+    return readStr(kStatusNode, &s) && s == "Charging" && !bypassActive();
 }
 
 int openUeventSocket() {
