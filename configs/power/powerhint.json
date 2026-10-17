@@ -46,6 +46,27 @@
             "ResetOnInit": true
         },
         {
+            "Name": "CoreCtlMinCoresLittle",
+            "Paths": ["/sys/devices/system/cpu/cpu0/core_ctl/min_cpus"],
+            "Values": ["3", "1"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CoreCtlMinCoresPrime",
+            "Paths": ["/sys/devices/system/cpu/cpu7/core_ctl/min_cpus"],
+            "Values": ["0", "1"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "UclampTALatency",
+            "Paths": ["/dev/cpuctl/top-app/cpu.uclamp.latency_sensitive"],
+            "Values": ["1", "0"],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
             "Name": "GPUMaxFreq",
             "Paths": ["/sys/class/kgsl/kgsl-3d0/devfreq/max_freq"],
             "Values": ["255000000", "353000000", "500000000", "633000000", "684000000", "736000000", "835000000", "900000000", "950000000", "1000000000", "1100000000"],
@@ -57,6 +78,13 @@
             "Paths": ["/sys/class/kgsl/kgsl-3d0/devfreq/min_freq"],
             "Values": ["1100000000", "1000000000", "950000000", "900000000", "835000000", "736000000", "684000000", "633000000", "500000000", "353000000", "255000000"],
             "DefaultIndex": 10,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "GPUIdleTimer",
+            "Paths": ["/sys/class/kgsl/kgsl-3d0/idle_timer"],
+            "Values": ["100", "80", "70", "60", "40", "20"],
+            "DefaultIndex": 4,
             "ResetOnInit": true
         },
         {
@@ -182,6 +210,20 @@
             "Paths": ["/proc/sys/walt/sched_min_task_util_for_uclamp"],
             "Values": ["0", "51", "20"],
             "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "SleepDisabled",
+            "Paths": ["/sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled"],
+            "Values": ["0", "1"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "PredictionDisabled",
+            "Paths": ["/sys/devices/system/cpu/qcom_lpm/parameters/prediction_disabled"],
+            "Values": ["0", "1"],
+            "DefaultIndex": 0,
             "ResetOnInit": true
         },
         {
@@ -404,6 +446,138 @@
             "Node": "WaltSchedIdleEnough",
             "Duration": 100,
             "Value": "30"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "GPUMaxFreq",
+            "Duration": 0,
+            "Value": "255000000"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "GPUIdleTimer",
+            "Duration": 0,
+            "Value": "40"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "CoreCtlMinCoresLittle",
+            "Duration": 0,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "CoreCtlMinCoresPrime",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltSchedBoost",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "SleepDisabled",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "PredictionDisabled",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "DdrBwSampleMs",
+            "Duration": 0,
+            "Value": "33"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "LlccBwSampleMs",
+            "Duration": 0,
+            "Value": "33"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "DdrBwHistMemory",
+            "Duration": 0,
+            "Value": "20"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "LlccBwHistMemory",
+            "Duration": 0,
+            "Value": "20"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "DdrBwHystTriggerCount",
+            "Duration": 0,
+            "Value": "3"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "LlccBwHystTriggerCount",
+            "Duration": 0,
+            "Value": "3"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "DdrBwIoPercent",
+            "Duration": 0,
+            "Value": "80"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "LlccBwIoPercent",
+            "Duration": 0,
+            "Value": "80"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltSchedIdleEnough",
+            "Duration": 0,
+            "Value": "30"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "UclampTALatency",
+            "Duration": 0,
+            "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltBusyHystCpuNs",
+            "Duration": 0,
+            "Value": "0 0 0 0 0 0 0 0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltSchedUpmigrate",
+            "Duration": 0,
+            "Value": "90 100"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltSchedDownmigrate",
+            "Duration": 0,
+            "Value": "75 85"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "DdrBwHystLength",
+            "Duration": 0,
+            "Value": "10"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "LlccBwHystLength",
+            "Duration": 0,
+            "Value": "10"
         },
         {
             "PowerHint": "EXPENSIVE_RENDERING",
