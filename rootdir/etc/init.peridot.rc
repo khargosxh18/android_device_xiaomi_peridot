@@ -307,9 +307,6 @@ on property:vendor.post_boot.parsed=1
     write /proc/sys/vm/dirty_background_ratio 10
     write /proc/sys/vm/swappiness 60
 
-    # Disable multiple kswapd threads
-    write /proc/sys/vm/kswapd_threads 1
-
 on property:sys.boot_completed=1
     chown root system /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
     chown root system /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
