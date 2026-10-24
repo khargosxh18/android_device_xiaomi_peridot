@@ -514,6 +514,12 @@
         },
         {
             "PowerHint": "INTERACTION",
+            "Node": "WaltBusyHystCpuNs",
+            "Duration": 150,
+            "Value": "2000000 2000000 2000000 1000000 1000000 1000000 1000000 0"
+        },
+        {
+            "PowerHint": "INTERACTION",
             "Node": "SchedMinTaskUtilForColoc",
             "Duration": 0,
             "Value": "35"
@@ -1176,7 +1182,7 @@
             "PID_Du": 0.0,
             "UclampMin_On": true,
             "UclampMin_Init": 0,
-            "UclampMin_High": 200,
+            "UclampMin_High": 384,
             "UclampMin_Low": 0,
             "UclampMin_LoadUp": 360,
             "UclampMin_LoadReset": 260,
@@ -1200,7 +1206,7 @@
             "PID_Du": 0.0,
             "UclampMin_On": true,
             "UclampMin_Init": 0,
-            "UclampMin_High": 200,
+            "UclampMin_High": 320,
             "UclampMin_Low": 0,
             "UclampMin_LoadUp": 300,
             "UclampMin_LoadReset": 280,
@@ -1224,7 +1230,7 @@
             "PID_Du": 0.0,
             "UclampMin_On": true,
             "UclampMin_Init": 0,
-            "UclampMin_High": 200,
+            "UclampMin_High": 320,
             "UclampMin_Low": 0,
             "UclampMin_LoadUp": 300,
             "UclampMin_LoadReset": 260,
@@ -1249,7 +1255,7 @@
             "UclampMin_On": true,
             "UclampMin_Init": 128,
             "UclampMin_High": 640,
-            "UclampMin_Low": -10,
+            "UclampMin_Low": 0,
             "UclampMin_LoadUp": 704,
             "UclampMin_LoadReset": 512,
             "SamplingWindow_P": 1,
