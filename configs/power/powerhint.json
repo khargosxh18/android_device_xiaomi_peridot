@@ -382,7 +382,7 @@
         {
             "Name": "UfsReadAhead",
             "Paths": ["/sys/block/sda/queue/read_ahead_kb"],
-            "Values": ["128", "2048"],
+            "Values": ["128", "1024"],
             "DefaultIndex": 0,
             "ResetOnInit": true
         },
@@ -1057,7 +1057,7 @@
             "PowerHint": "GAME",
             "Node": "UfsReadAhead",
             "Duration": 0,
-            "Value": "128"
+            "Value": "1024"
         },
         {
             "PowerHint": "GAME",
