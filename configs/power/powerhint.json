@@ -146,7 +146,7 @@
         {
             "Name": "DdrBwIoPercent",
             "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/io_percent"],
-            "Values": ["80", "100", "16"],
+            "Values": ["80", "100", "16", "40"],
             "DefaultIndex": 0,
             "ResetOnInit": true
         },
@@ -188,7 +188,7 @@
         {
             "Name": "LlccBwIoPercent",
             "Paths": ["/sys/devices/system/cpu/bus_dcvs/LLCC/240b7400.qcom,bwmon-llcc/io_percent"],
-            "Values": ["80", "100", "16"],
+            "Values": ["80", "100", "16", "40"],
             "DefaultIndex": 0,
             "ResetOnInit": true
         },
@@ -877,7 +877,7 @@
             "PowerHint": "GAME",
             "Node": "UclampTAMin",
             "Duration": 0,
-            "Value": "60"
+            "Value": "50"
         },
         {
             "PowerHint": "GAME",
@@ -961,37 +961,37 @@
             "PowerHint": "GAME",
             "Node": "DdrBwHistMemory",
             "Duration": 0,
-            "Value": "0"
+            "Value": "20"
         },
         {
             "PowerHint": "GAME",
             "Node": "LlccBwHistMemory",
             "Duration": 0,
-            "Value": "0"
+            "Value": "20"
         },
         {
             "PowerHint": "GAME",
             "Node": "DdrBwHystTriggerCount",
             "Duration": 0,
-            "Value": "0"
+            "Value": "3"
         },
         {
             "PowerHint": "GAME",
             "Node": "LlccBwHystTriggerCount",
             "Duration": 0,
-            "Value": "0"
+            "Value": "3"
         },
         {
             "PowerHint": "GAME",
             "Node": "DdrBwIoPercent",
             "Duration": 0,
-            "Value": "16"
+            "Value": "40"
         },
         {
             "PowerHint": "GAME",
             "Node": "LlccBwIoPercent",
             "Duration": 0,
-            "Value": "16"
+            "Value": "40"
         },
         {
             "PowerHint": "GAME",
@@ -1015,19 +1015,19 @@
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForBoost",
             "Duration": 0,
-            "Value": "0"
+            "Value": "15"
         },
         {
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForColoc",
             "Duration": 0,
-            "Value": "0"
+            "Value": "15"
         },
         {
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForUclamp",
             "Duration": 0,
-            "Value": "0"
+            "Value": "20"
         },
         {
             "PowerHint": "GAME",
@@ -1082,18 +1082,6 @@
             "Node": "SchedGroupDown",
             "Duration": 0,
             "Value": "35"
-        },
-        {
-            "PowerHint": "GAME",
-            "Node": "SchedGroupUp",
-            "Duration": 0,
-            "Value": "70"
-        },
-        {
-            "PowerHint": "GAME",
-            "Node": "SchedColocBusyHystEnableCpus",
-            "Duration": 0,
-            "Value": "120"
         },
         {
             "PowerHint": "REFRESH_120HZ",
