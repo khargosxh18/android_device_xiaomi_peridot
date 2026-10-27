@@ -177,6 +177,14 @@ on init
     chmod 0664 /dev/cpuctl/misc/tasks
     mkdir /dev/cpuset/small-window
     mkdir /dev/cpuctl/small-window
+    mkdir /dev/cpuset/hal-display
+    chown root system /dev/cpuset/hal-display
+    write /dev/cpuset/hal-display/cpus 0-2
+    write /dev/cpuset/hal-display/mems 0
+    chown root system /dev/cpuset/hal-display/tasks
+    chown root system /dev/cpuset/hal-display/cgroup.procs
+    chmod 0664 /dev/cpuset/hal-display/tasks
+    chmod 0664 /dev/cpuset/hal-display/cgroup.procs
 
 on fs
     mkdir /dev/logfs 0771 system system

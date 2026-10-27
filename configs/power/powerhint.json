@@ -401,6 +401,13 @@
             "ResetOnInit": true
         },
         {
+            "Name": "CpusetHalDisplay",
+            "Paths": ["/dev/cpuset/hal-display/cpus"],
+            "Values": ["0-2", "0-6"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
             "Name": "ADPFProfileSurfaceFlinger",
             "Paths": ["<AdpfConfig>:SURFACEFLINGER"],
             "Values": ["ADPF_DOZE_MAX", "ADPF_GAME_MODE", "REFRESH_120HZ", "REFRESH_90HZ", "REFRESH_60HZ"],
@@ -704,6 +711,12 @@
             "Node": "LlccBwHystLength",
             "Duration": 0,
             "Value": "10"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "CpusetHalDisplay",
+            "Duration": 0,
+            "Value": "0-2"
         },
         {
             "PowerHint": "EXPENSIVE_RENDERING",
@@ -1077,6 +1090,12 @@
             "Node": "UfsReadAhead",
             "Duration": 0,
             "Value": "1024"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "CpusetHalDisplay",
+            "Duration": 0,
+            "Value": "0-6"
         },
         {
             "PowerHint": "GAME",

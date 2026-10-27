@@ -129,6 +129,8 @@ blob_fixups: blob_fixups_user_type = {
         'odm/etc/camera/night_motiontuning.xml'
     ): blob_fixup()
         .regex_replace('xml=version', 'xml version'),
+    'vendor/etc/init/vendor.qti.hardware.display.composer-service_peridot.rc': blob_fixup()
+        .regex_replace('writepid /dev/cpuset/system-background/tasks', 'task_profiles HalDisplay'),
     'odm/lib64/anc.hal.so': blob_fixup()
         .add_needed('libion.so'),
     (
