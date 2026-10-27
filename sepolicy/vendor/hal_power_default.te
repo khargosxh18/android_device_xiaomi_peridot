@@ -5,6 +5,9 @@ typeattribute hal_power_default mlstrustedsubject;
 allow hal_power_default proc_walt:dir search;
 allow hal_power_default proc_walt:file rw_file_perms;
 allow hal_power_default proc_stat:file r_file_perms;
+
+# VM watermark tuning driven from powerhint
+allow hal_power_default proc_watermark_scale_factor:file rw_file_perms;
 allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
 allow hal_power_default sysfs_devices_system_cpu:file rw_file_perms;
 
