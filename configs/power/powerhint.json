@@ -324,6 +324,13 @@
             "ResetOnInit": true
         },
         {
+            "Name": "VmWatermarkScaleFactor",
+            "Paths": ["/proc/sys/vm/watermark_scale_factor"],
+            "Values": ["76", "125"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
             "Name": "Cpu0WaltHispeedFreq",
             "Paths": ["/sys/devices/system/cpu/cpu0/cpufreq/walt/hispeed_freq"],
             "Values": ["1344000", "787200"],
@@ -591,6 +598,12 @@
             "Node": "WaltSchedHeavyNr",
             "Duration": 0,
             "Value": "0"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "VmWatermarkScaleFactor",
+            "Duration": 0,
+            "Value": "76"
         },
         {
             "PowerHint": "DISPLAY_INACTIVE",
@@ -1072,6 +1085,12 @@
             "Node": "WaltSchedHeavyNr",
             "Duration": 0,
             "Value": "2"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "VmWatermarkScaleFactor",
+            "Duration": 0,
+            "Value": "125"
         },
         {
             "PowerHint": "GAME",
