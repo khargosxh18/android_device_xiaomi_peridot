@@ -296,6 +296,13 @@
             "ResetOnInit": true
         },
         {
+            "Name": "WaltSchedHeavyNr",
+            "Paths": ["/proc/sys/walt/sched_heavy_nr"],
+            "Values": ["0", "2"],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
             "Name": "SchedGroupUp",
             "Paths": ["/proc/sys/walt/sched_group_upmigrate"],
             "Values": ["100", "70"],
@@ -571,6 +578,12 @@
             "Node": "GPUIdleTimer",
             "Duration": 0,
             "Value": "40"
+        },
+        {
+            "PowerHint": "DISPLAY_INACTIVE",
+            "Node": "WaltSchedHeavyNr",
+            "Duration": 0,
+            "Value": "0"
         },
         {
             "PowerHint": "DISPLAY_INACTIVE",
@@ -1040,6 +1053,12 @@
             "Node": "LlccBwSampleMs",
             "Duration": 0,
             "Value": "4"
+        },
+        {
+            "PowerHint": "GAME",
+            "Node": "WaltSchedHeavyNr",
+            "Duration": 0,
+            "Value": "2"
         },
         {
             "PowerHint": "GAME",
