@@ -202,8 +202,8 @@
 
         <SwitchPreferenceCompat
             android:key="game_bar_doubletap_capture"
-            android:title="Enable Double Tap to Capture"
-            android:summary="Double-tap overlay to start/stop capture logs"
+            android:title="Enable Double Tap to Record"
+            android:summary="Double-tap overlay to start/stop FPS recording"
             android:defaultValue="true" />
 
         <SwitchPreferenceCompat
@@ -220,26 +220,6 @@
             android:entries="@array/game_bar_longpress_entries"
             android:entryValues="@array/game_bar_longpress_values"
             android:dependency="game_bar_longpress_enable" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Capture Logs"
-        android:dependency="game_bar_enable">
-
-        <Preference
-            android:key="game_bar_capture_start"
-            android:title="Start Logging"
-            android:summary="Begin capturing FPS and performance data in real-time" />
-
-        <Preference
-            android:key="game_bar_capture_stop"
-            android:title="Stop Logging"
-            android:summary="Stop capturing FPS and performance data in real-time" />
-
-        <Preference
-            android:key="game_bar_capture_export"
-            android:title="Export GameBar Log Data"
-            android:summary="Save the captured FPS and performance data as a CSV file" />
     </PreferenceCategory>
 
     <PreferenceCategory

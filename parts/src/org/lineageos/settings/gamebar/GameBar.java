@@ -159,13 +159,9 @@ public class GameBar {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 if (mDoubleTapCaptureEnabled) {
-                    if (GameDataExport.getInstance().isCapturing()) {
-                        GameDataExport.getInstance().stopCapture();
-                        Toast.makeText(mContext, "Capture Stopped", Toast.LENGTH_SHORT).show();
-                    } else {
-                        GameDataExport.getInstance().startCapture();
-                        Toast.makeText(mContext, "Capture Started", Toast.LENGTH_SHORT).show();
-                    }
+                    Intent intent = new Intent(mContext, FpsRecordControlOverlayService.class);
+                    intent.setAction(FpsRecordControlOverlayService.ACTION_TOGGLE_RECORDING);
+                    mContext.startService(intent);
                     return true;
                 }
                 return super.onDoubleTap(e);
@@ -366,7 +362,6 @@ public class GameBar {
             mHandler.removeCallbacksAndMessages(null);
         }
         mGestureDetector = null;
-        mBgDrawable = null;
         mLayoutParams = null;
     }
 
@@ -713,6 +708,9 @@ public class GameBar {
     }
 
     private void applyBackgroundStyle() {
+        if (mBgDrawable == null) {
+            mBgDrawable = new GradientDrawable();
+        }
         int color = Color.argb(mBackgroundAlpha, 0, 0, 0);
         mBgDrawable.setColor(color);
         mBgDrawable.setCornerRadius(mCornerRadius);
