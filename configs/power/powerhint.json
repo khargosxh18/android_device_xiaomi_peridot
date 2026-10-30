@@ -291,7 +291,7 @@
         {
             "Name": "WaltBusyHystCpuNs",
             "Paths": ["/proc/sys/walt/sched_util_busy_hyst_cpu_ns"],
-            "Values": ["2000000 2000000 2000000 1000000 1000000 1000000 1000000 0", "0 0 0 0 0 0 0 0", "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000"],
+            "Values": ["2000000 2000000 2000000 1000000 1000000 1000000 1000000 0", "0 0 0 0 0 0 0 0", "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000", "5000000 5000000 5000000 5000000 5000000 5000000 5000000 4000000"],
             "DefaultIndex": 1,
             "ResetOnInit": true
         },
@@ -891,7 +891,7 @@
             "PowerHint": "GAME",
             "Node": "GPUMaxFreq",
             "Duration": 0,
-            "Value": "1100000000"
+            "Value": "950000000"
         },
         {
             "PowerHint": "GAME",
@@ -939,7 +939,7 @@
             "PowerHint": "GAME",
             "Node": "WaltBusyHystCpuNs",
             "Duration": 0,
-            "Value": "8500000 8500000 8500000 6000000 6000000 6000000 6000000 4000000"
+            "Value": "5000000 5000000 5000000 5000000 5000000 5000000 5000000 4000000"
         },
         {
             "PowerHint": "GAME",
@@ -957,7 +957,7 @@
             "PowerHint": "GAME",
             "Node": "DdrBwMinFreq",
             "Duration": 0,
-            "Value": "1555000"
+            "Value": "2092000"
         },
         {
             "PowerHint": "GAME",
@@ -975,7 +975,7 @@
             "PowerHint": "GAME",
             "Node": "PMQoSCpuDmaLatency",
             "Duration": 0,
-            "Value": "67"
+            "Value": "44"
         },
         {
             "PowerHint": "GAME",
@@ -1029,31 +1029,31 @@
             "PowerHint": "GAME",
             "Node": "DdrBwHystLength",
             "Duration": 0,
-            "Value": "0"
+            "Value": "10"
         },
         {
             "PowerHint": "GAME",
             "Node": "LlccBwHystLength",
             "Duration": 0,
-            "Value": "0"
+            "Value": "10"
         },
         {
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForBoost",
             "Duration": 0,
-            "Value": "15"
+            "Value": "51"
         },
         {
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForColoc",
             "Duration": 0,
-            "Value": "15"
+            "Value": "35"
         },
         {
             "PowerHint": "GAME",
             "Node": "SchedMinTaskUtilForUclamp",
             "Duration": 0,
-            "Value": "20"
+            "Value": "51"
         },
         {
             "PowerHint": "GAME",
