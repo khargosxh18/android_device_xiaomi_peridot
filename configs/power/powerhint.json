@@ -486,6 +486,12 @@
         },
         {
             "PowerHint": "LAUNCH",
+            "Node": "PMQoSCpuDmaLatency",
+            "Duration": 1500,
+            "Value": "44"
+        },
+        {
+            "PowerHint": "LAUNCH",
             "Node": "GPUIdleTimer",
             "Value": "100",
             "Duration": 1000
@@ -513,6 +519,12 @@
             "Node": "CPUBigPlusClusterMaxFreq",
             "Duration": 1000,
             "Value": "1900800"
+        },
+        {
+            "PowerHint": "INTERACTION",
+            "Node": "PMQoSCpuDmaLatency",
+            "Duration": 150,
+            "Value": "67"
         },
         {
             "PowerHint": "INTERACTION",
