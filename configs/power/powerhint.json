@@ -133,7 +133,7 @@
             "Name": "DdrBwHystLength",
             "Paths": ["/sys/devices/system/cpu/bus_dcvs/DDR/24091000.qcom,bwmon-ddr/hyst_length"],
             "Values": ["4", "0", "10"],
-            "DefaultIndex": 2,
+            "DefaultIndex": 0,
             "ResetOnInit": true
         },
         {
@@ -313,13 +313,6 @@
             "Name": "SchedGroupDown",
             "Paths": ["/proc/sys/walt/sched_group_downmigrate"],
             "Values": ["85", "35"],
-            "DefaultIndex": 0,
-            "ResetOnInit": true
-        },
-        {
-            "Name": "SchedColocBusyHystEnableCpus",
-            "Paths": ["/proc/sys/walt/sched_coloc_busy_hysteresis_enable_cpus"],
-            "Values": ["0", "120"],
             "DefaultIndex": 0,
             "ResetOnInit": true
         },
@@ -716,13 +709,13 @@
             "PowerHint": "DISPLAY_INACTIVE",
             "Node": "DdrBwHystLength",
             "Duration": 0,
-            "Value": "10"
+            "Value": "0"
         },
         {
             "PowerHint": "DISPLAY_INACTIVE",
             "Node": "LlccBwHystLength",
             "Duration": 0,
-            "Value": "10"
+            "Value": "0"
         },
         {
             "PowerHint": "DISPLAY_INACTIVE",
@@ -746,7 +739,7 @@
             "PowerHint": "EXPENSIVE_RENDERING",
             "Node": "GPUMaxFreq",
             "Duration": 0,
-            "Value": "500000000"
+            "Value": "633000000"
         },
         {
             "PowerHint": "FP_BOOST",
