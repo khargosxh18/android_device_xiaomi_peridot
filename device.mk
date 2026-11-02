@@ -326,24 +326,82 @@ PRODUCT_PACKAGES += \
     RemovePackagesPeridot
 
 # Logging
-SPAMMY_LOG_TAGS := \
-    AiAiEcho \
-    MiStcImpl \
-    SDM \
-    SDM-histogram \
-    SRE \
-    WifiHAL \
+SPAMMY_LOG_TAGS_S := \
+    ache \
+    mist \
+    pal \
+    sdm \
+    sdm-histogram \
+    sre \
+    wifihal \
     cnss-daemon \
     libsensor-displayalgo \
+    libsensor-parsergb \
     libsensor-parseRGB \
     libsensor-ssccalapi \
     sensors \
     sensors-hal \
     vendor.qti.hardware.display.composer-service \
+    comu \
+    libsensor-boledalgo \
+    libsensor-qshcalapi \
+    MiClstc \
+    minksocket \
+    vendor.xiaomi.sensor.citsensorservice.aidl \
+    gsi \
+    Transition \
+    HWUI \
+    ImeTracker \
+    PAL \
+    AGM \
+    COMU \
+    vendor.qti.vibratorOL \
+    qdgralloc \
+    QC-time-services \
+    QC2Interface \
+    QC2PerfCtrlUtil \
+    AHAL \
+    CCodec \
+    CCodecConfig \
+    CCodecBuffers \
+    CCodecBufferChannel \
+    BufferPoolAccessor2.0 \
+    Codec2Client \
+    nativeloader \
+    ReflectedParamUpdater \
+    StatsLog \
+    FontLog \
+    ashmem \
+    InputChannel-JNI \
+    LegacyMessageQueue \
+    ClassLoaderConfiguration
+
+# Useful for debugging, not spammy: keep errors only
+SPAMMY_LOG_TAGS_E := \
+    TelephonyManager \
+    ConnectivityService \
+    View \
+    InsetsController \
+    SettingsProvider \
+    PackageConfigPersister \
+    MediaSessionService \
+    InetDiagMessage \
+    CoreBackPreview \
+    WindowOnBackDispatcher \
+    ResourcesManager \
+    CompatChangeReporter \
+    JobInfo \
+    AudioCapabilities \
+    ConstraintSet \
+    qcrilNrd \
+    AdrenoVK-0 \
+    GPQeSE-HAL \
+    powerhal-libperfmgr
 
 ifneq ($(TARGET_BUILD_VARIANT),eng)
 PRODUCT_VENDOR_PROPERTIES += \
-    $(foreach tag,$(SPAMMY_LOG_TAGS),log.tag.$(tag)=E)
+    $(foreach tag,$(SPAMMY_LOG_TAGS_S),log.tag.$(tag)=S) \
+    $(foreach tag,$(SPAMMY_LOG_TAGS_E),log.tag.$(tag)=E)
 endif
 
 # Media
