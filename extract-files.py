@@ -88,6 +88,82 @@ DOLBY_VNDK_LIBS = (
     'libstagefright_bufferqueue_helper',
 )
 
+def blob_fixup_cfi_check_ret(
+    ctx: BlobFixupCtx,
+    file: File,
+    file_path: str,
+    *args,
+    **kwargs,
+):
+    import struct
+
+    with open(file_path, 'rb') as f:
+        data = bytearray(f.read())
+    if data[:4] != b'\x7fELF' or data[4] != 2 or data[5] != 1:
+        raise ValueError(f'{file_path}: not a little-endian ELF64 file')
+    if struct.unpack_from('<H', data, 18)[0] != 183:
+        raise ValueError(f'{file_path}: not an AArch64 lib')
+
+    phoff, = struct.unpack_from('<Q', data, 32)
+    phentsize, phnum = struct.unpack_from('<HH', data, 54)
+    loads, dyn = [], None
+    for i in range(phnum):
+        p_type, _, p_off, p_va, _, p_filesz, _, _ = struct.unpack_from(
+            '<IIQQQQQQ', data, phoff + i * phentsize
+        )
+        if p_type == 1:
+            loads.append((p_va, p_off, p_filesz))
+        elif p_type == 2:
+            dyn = (p_off, p_filesz)
+
+    def v2o(v):
+        for va, off, sz in loads:
+            if va <= v < va + sz:
+                return v - va + off
+        return None
+
+    if dyn is None:
+        return
+    tags = {}
+    for i in range(0, dyn[1], 16):
+        t, v = struct.unpack_from('<QQ', data, dyn[0] + i)
+        if t == 0:
+            break
+        tags.setdefault(t, v)
+    symtab, strtab = v2o(tags.get(6, 0)), v2o(tags.get(5, 0))
+    if symtab is None or strtab is None:
+        return
+
+    if 4 in tags:
+        n = struct.unpack_from('<II', data, v2o(tags[4]))[1]
+    elif 0x6ffffef5 in tags:
+        gh = v2o(tags[0x6ffffef5])
+        nb, symoff, bloomsz, _ = struct.unpack_from('<IIII', data, gh)
+        buckets = gh + 16 + bloomsz * 8
+        chains = buckets + nb * 4
+        mx = max(struct.unpack_from(f'<{nb}I', data, buckets))
+        n = symoff
+        if mx >= symoff:
+            n = mx
+            while not (struct.unpack_from('<I', data, chains + (n - symoff) * 4)[0] & 1):
+                n += 1
+            n += 1
+    else:
+        n = (strtab - symtab) // 24
+
+    for i in range(n):
+        st_name, _, _, st_shndx, st_value, _ = struct.unpack_from(
+            '<IBBHQQ', data, symtab + i * 24
+        )
+        end = data.index(b'\0', strtab + st_name)
+        if data[strtab + st_name:end] == b'__cfi_check' and st_shndx != 0:
+            off = v2o(st_value)
+            if off is not None:
+                data[off:off + 8] = bytes.fromhex('5f2403d5c0035fd6')
+                with open(file_path, 'wb') as f:
+                    f.write(data)
+            return
+
 def blob_fixup_dolby_relink() -> blob_fixup:
     fixup = blob_fixup()
     for lib in DOLBY_PRIVATE_LIBS:
@@ -128,7 +204,8 @@ blob_fixups: blob_fixups_user_type = {
             'fd 7b be a9 f4 4f 01 a9 fd 03 00 91 14 06 00 90',
             '80 35 86 52 80 00 a0 72 c0 03 5f d6 1f 20 03 d5'
         ),
-    tuple(f'vendor/lib64/{lib}{DOLBY_SUFFIX}.so' for lib in DOLBY_PRIVATE_LIBS): blob_fixup_dolby_relink(),
+    tuple(f'vendor/lib64/{lib}{DOLBY_SUFFIX}.so' for lib in DOLBY_PRIVATE_LIBS): blob_fixup_dolby_relink()
+        .call(blob_fixup_cfi_check_ret),
     (
         'vendor/lib64/libcodec2_soft_ddpdec.so',
         'vendor/lib64/libcodec2_store_dolby.so',
