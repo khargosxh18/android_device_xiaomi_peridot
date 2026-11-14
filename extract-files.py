@@ -82,6 +82,7 @@ DOLBY_PRIVATE_LIBS = (
 
 DOLBY_VNDK_LIBS = (
     'libui',
+    'libstagefright_foundation',
     'android.hidl.token@1.0',
     'android.hidl.token@1.0-utils',
     'libstagefright_bufferqueue_helper',
@@ -128,16 +129,31 @@ blob_fixups: blob_fixups_user_type = {
             '80 35 86 52 80 00 a0 72 c0 03 5f d6 1f 20 03 d5'
         )
         .replace_needed('libcodec2_soft_common.so', 'libcodec2_soft_common_prebuilt.so')
-        .replace_needed('libsfplugin_ccodec_utils.so', 'libsfplugin_ccodec_utils_prebuilt.so'),
+        .replace_needed('libsfplugin_ccodec_utils.so', 'libsfplugin_ccodec_utils_prebuilt.so')
+        .replace_needed('libstagefright_foundation.so', 'libstagefright_foundation-v34.so'),
     tuple(f'vendor/lib64/{lib}{DOLBY_SUFFIX}.so' for lib in DOLBY_PRIVATE_LIBS): blob_fixup_dolby_relink(),
     (
-        'vendor/bin/hw/vendor.dolby.media.c2@1.0-service',
         'vendor/lib64/libcodec2_soft_ddpdec.so',
         'vendor/lib64/libcodec2_store_dolby.so',
         'vendor/lib64/libdolbydecoderprocessor.so',
         'vendor/lib64/libdolbyeglcore.so',
         'vendor/lib64/libqcodec2_dolbydecoderfilter.so',
     ): blob_fixup_dolby_relink(),
+    'vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service': blob_fixup()
+        .add_needed('libstagefright_foundation-v34.so'),
+    'vendor/bin/hw/vendor.dolby.media.c2@1.0-service': blob_fixup_dolby_relink()
+        .add_needed('libstagefright_foundation-v34.so'),
+    (
+        'vendor/lib64/soundfx/libdlbvol.so',
+        'vendor/lib64/soundfx/libhwdap.so',
+        'vendor/lib64/soundfx/libswspatializer.so',
+        'vendor/lib64/libswspatializer_ext.so',
+        'vendor/lib64/libdlbdsservice.so',
+        'vendor/lib64/libdlbpreg.so',
+        'vendor/lib64/libmisoundfx_ext.so',
+        'vendor/lib64/hw/audio.primary.pineapple.so',
+    ): blob_fixup()
+        .replace_needed('libstagefright_foundation.so', 'libstagefright_foundation-v34.so'),
     'vendor/etc/seccomp_policy/atfwd@2.0.policy': blob_fixup()
         .regex_replace(r'(?m)^gettid:\s*1\s*$', 'gettid: 1\nlseek: 1'),
     'vendor/etc/seccomp_policy/qesdksec.policy': blob_fixup()
