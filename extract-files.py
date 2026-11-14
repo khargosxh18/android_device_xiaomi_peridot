@@ -26,6 +26,7 @@ from extract_utils.utils import (
 )
 
 namespace_imports = [
+    'device/xiaomi/peridot',
     'hardware/qcom-caf/sm8650',
     'hardware/qcom-caf/wlan',
     'hardware/xiaomi',
@@ -62,6 +63,39 @@ def blob_fixup_graphic_buffer_size(
                 f.write(b'\x00\xa6\x81\x52')  # AArch64 mov w0, #0xd30
 
 
+DOLBY_SUFFIX = '_prebuilt'
+VNDK_SUFFIX = '-v34'
+
+DOLBY_PRIVATE_LIBS = (
+    'android.hardware.media.bufferpool2-V1-ndk',
+    'android.hardware.media.c2@1.0',
+    'android.hardware.media.c2@1.1',
+    'android.hardware.media.c2@1.2',
+    'libcodec2_hidl@1.0',
+    'libcodec2_hidl@1.1',
+    'libcodec2_hidl@1.2',
+    'libcodec2_hidl_plugin',
+    'libcodec2_vndk',
+    'libcodec2_soft_common',
+    'libsfplugin_ccodec_utils',
+)
+
+DOLBY_VNDK_LIBS = (
+    'libui',
+    'android.hidl.token@1.0',
+    'android.hidl.token@1.0-utils',
+    'libstagefright_bufferqueue_helper',
+)
+
+def blob_fixup_dolby_relink() -> blob_fixup:
+    fixup = blob_fixup()
+    for lib in DOLBY_PRIVATE_LIBS:
+        fixup = fixup.replace_needed(f'{lib}.so', f'{lib}{DOLBY_SUFFIX}.so')
+    for lib in DOLBY_VNDK_LIBS:
+        fixup = fixup.replace_needed(f'{lib}.so', f'{lib}{VNDK_SUFFIX}.so')
+    return fixup
+
+
 def lib_fixup_odm_suffix(lib: str, partition: str, *args, **kwargs):
     return f'{lib}_{partition}' if partition == 'odm' else None
 
@@ -88,6 +122,20 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    'vendor/lib64/libcodec2_soft_ac4dec.so': blob_fixup_dolby_relink()
+        .sig_replace(
+            'fd 7b be a9 f4 4f 01 a9 fd 03 00 91 14 06 00 90',
+            '80 35 86 52 80 00 a0 72 c0 03 5f d6 1f 20 03 d5'
+        ),
+    tuple(f'vendor/lib64/{lib}{DOLBY_SUFFIX}.so' for lib in DOLBY_PRIVATE_LIBS): blob_fixup_dolby_relink(),
+    (
+        'vendor/bin/hw/vendor.dolby.media.c2@1.0-service',
+        'vendor/lib64/libcodec2_soft_ddpdec.so',
+        'vendor/lib64/libcodec2_store_dolby.so',
+        'vendor/lib64/libdolbydecoderprocessor.so',
+        'vendor/lib64/libdolbyeglcore.so',
+        'vendor/lib64/libqcodec2_dolbydecoderfilter.so',
+    ): blob_fixup_dolby_relink(),
     'vendor/etc/seccomp_policy/atfwd@2.0.policy': blob_fixup()
         .regex_replace(r'(?m)^gettid:\s*1\s*$', 'gettid: 1\nlseek: 1'),
     'vendor/etc/seccomp_policy/qesdksec.policy': blob_fixup()
@@ -337,12 +385,8 @@ blob_fixups: blob_fixups_user_type = {
             r'(service\s+vendor\.dpmd\s+/vendor/bin/vendor\.dpmd\s*\n)',
             r'\1    user root\n'
     ),
-    'vendor/etc/clstc_config_library.xml': blob_fixup()
-        .regex_replace(r'<library>\s*<name>libdolbyclstc[\s\S]*?</library>', ''),
     'vendor/etc/seccomp_policy/c2audio.vendor.ext-arm64.policy': blob_fixup()
         .add_line_if_missing('setsockopt: 1'),
-    'vendor/etc/vintf/manifest/c2_manifest_vendor.xml': blob_fixup()
-        .regex_replace('.+DOLBY.+\n', ''),
     (
         'vendor/bin/qcc-vendor',
         'vendor/bin/qms',
