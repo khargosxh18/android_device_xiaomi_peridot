@@ -41,3 +41,92 @@ mkdir {
     dir: "modem_firmware",
     vendor: true,
 }
+
+cc_prebuilt_library_shared {
+    name: "android.hidl.token@1.0-utils-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "android.hidl.token@1.0-v34",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    srcs: ["vndk/v34/android.hidl.token@1.0-utils-v34.so"],
+    compile_multilib: "64",
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hidl.token@1.0-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    srcs: ["vndk/v34/android.hidl.token@1.0-v34.so"],
+    compile_multilib: "64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libstagefright_bufferqueue_helper-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "libhidlbase",
+        "libhidlmemory",
+        "liblog",
+        "libstagefright_foundation-v34",
+        "libui-v34",
+        "libutils",
+        "android.hardware.graphics.bufferqueue@1.0",
+        "android.hardware.graphics.bufferqueue@2.0",
+        "android.hidl.token@1.0-utils-v34",
+        "libEGL",
+        "libnativewindow",
+        "libvndksupport",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    srcs: ["vndk/v34/libstagefright_bufferqueue_helper-v34.so"],
+    compile_multilib: "64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libstagefright_foundation-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libutils",
+        "libcutils",
+        "liblog",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    srcs: ["vndk/v34/libstagefright_foundation-v34.so"],
+    compile_multilib: "64",
+}
