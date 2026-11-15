@@ -92,6 +92,7 @@ persist.sys.fuse.passthrough.enable=true
 persist.backup.ntpServer=0.pool.ntp.org
 
 # Graphics
+debug.renderengine.backend=skiavkthreaded
 debug.angle.feature_overrides_enabled=preferLinearFilterForYUV:mapUnspecifiedColorSpaceToPassThrough
 debug.egl.hw=0
 debug.hwui.skia_atrace_enabled=false
